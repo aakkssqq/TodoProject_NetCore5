@@ -38,7 +38,7 @@ namespace ObserverPatternWeb.API
         [HttpGet("{account}")]
         public async Task<IEnumerable<dynamic>> GetData(string account)
         {
-            var items = _dataServicesBase.GetTableData("YZAppISOLog",  20);
+            var items = _dataServicesBase.GetTableData("AppISOLog",  20);
             return await items;
         }
 
@@ -56,8 +56,8 @@ namespace ObserverPatternWeb.API
                     _event = Events.EventType.None.ToString();
                     var data = ServerSentEventData($@" {count}. 無動作", "", _event);
 
-                    var msg = (IDictionary<string, object>)_dataServicesBase.GetTableDataCount("YZAppISOLog").Result.FirstOrDefault();
-                    var task = (IDictionary<string, object>)_dataServicesBase.GetTaskCount().Result.FirstOrDefault();
+                    var msg = (IDictionary<string, object>)_dataServicesBase.GetTableDataCount("AppISOLog").Result.FirstOrDefault();
+                    //var task = (IDictionary<string, object>)_dataServicesBase.GetTaskCount().Result.FirstOrDefault();
 
                     if (msg != null)
                         if (msgIndex != Convert.ToInt32(msg["ID"]))
@@ -69,15 +69,15 @@ namespace ObserverPatternWeb.API
                             msgIndex = Convert.ToInt32(msg["ID"]);
                         }
 
-                    if (task != null)
-                        if (taskIndex != Convert.ToInt32(task["TaskID"]))
-                        {
-                            count++;
-                            _event = Events.EventType.NewTasks.ToString();
-                            if (taskIndex != -1)
-                                data = ServerSentEventData($@" {count}. {task["SerialNum"]}任務更新", task["TaskID"].ToString(), _event);
-                            taskIndex = Convert.ToInt32(task["TaskID"]);
-                        }
+                    //if (task != null)
+                    //    if (taskIndex != Convert.ToInt32(task["TaskID"]))
+                    //    {
+                    //        count++;
+                    //        _event = Events.EventType.NewTasks.ToString();
+                    //        if (taskIndex != -1)
+                    //            data = ServerSentEventData($@" {count}. {task["SerialNum"]}任務更新", task["TaskID"].ToString(), _event);
+                    //        taskIndex = Convert.ToInt32(task["TaskID"]);
+                    //    }
 
                     await response.WriteAsync(data);
 

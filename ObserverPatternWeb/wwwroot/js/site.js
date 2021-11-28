@@ -5,3 +5,4 @@
 var site= {};
 site.SSEUrl = "/api/Push";
 site.MsgUrl = "/api/Push/12345";
+site.UploadUrl = "/api/File";

@@ -3,7 +3,7 @@
 }
 <script src="~/lib/axios/dist/axios.min.js"></script>
 <script>
-    var flickerAPI = 'https://localhost:44354/api/Push/sa';
+    var flickerAPI = site.SSEUrl;
     if (typeof(EventSource) !== "undefined") {
         //創建一個新的 EventSource 對象，規定發送更新的頁面的 URL
         var source = new EventSource(site.SSEUrl);
@@ -90,20 +90,20 @@
             var fileUpload = $("#files").get(0);
             var files = fileUpload.files;
             var data = new FormData();
-            for (var i = 0; i < files.length ; i  ) {
+            for (var i = 0; i < files.length ; i++ ) {
                 data.append(files[i].name, files[i]);
             }
             $.ajax({
                 type: "POST",
-                url: "/Picture/UploadFilesAjax",
+                url: site.UploadUrl,
                 contentType: false,
                 processData: false,
                 data: data,
-                success: function (message) {
-                    alert(message);
+                success: function (obj) {
+                    alert(obj.filesName + "上傳成功");
                 },
-                error: function () {
-                    alert("There was error uploading files!");
+                error: function (obj) {
+                    alert("上傳檔案失敗");
                 }
             });
         });

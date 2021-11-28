@@ -35,6 +35,12 @@ namespace ObserverPatternWeb.API
         [HttpPost]
         public async Task<JsonResult> Upload(List<IFormFile> files)
         {
+            string filesName = string.Empty;
+
+            if (files.Count==0)
+            {
+                files = (List<IFormFile>)Request.Form.Files;
+            }
             var size = files.Sum(f => f.Length);
 
             foreach (var file in files)
@@ -49,7 +55,12 @@ namespace ObserverPatternWeb.API
                 }
             }
 
-            return Json(new { count = files.Count, size });
+            foreach (IFormFile file in files)
+            {
+                filesName = new ObserverPattern.Services.Formate.FormateService().JoinStr(filesName, file.Name, ",");
+            }
+
+            return Json(new { count = files.Count, size , filesName });
         }
 
         [HttpGet("{fileName}")]

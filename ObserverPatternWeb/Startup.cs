@@ -59,25 +59,14 @@ namespace ObserverPatternWeb
             services.AddScoped<IDataServiceBase,DataServiceBase>();
             
             //判斷環境
-            string cnStrSetting;
-            switch (Configuration.GetSection("Environment").Value)
-            {
-                case "Debug":
-                    cnStrSetting = "ConnectionStrings:DebugConnection";
-                    break;
-                case "Demo":
-                    cnStrSetting = "ConnectionStrings:DemoConnection";
-                    break;
-                default:
-                    cnStrSetting = "ConnectionStrings:DefaultConnection";
-                    break;
-            }
+            string cnSetting = Configuration.GetSection("Environment").Value;
+            string cnStrSetting = $@"{cnSetting.Substring(0, 1).ToUpper()}{cnSetting.Substring(1, cnSetting.Length - 1)}Connection";
+            var cnString = Configuration.GetConnectionString(cnStrSetting) != null ? $@"ConnectionStrings:{cnStrSetting}" : "ConnectionStrings:DefaultConnection";
+
             //註冊連線字串
-            var dBConnection = Configuration.GetSection(cnStrSetting);
+            var dBConnection = Configuration.GetSection(cnString);
             services.Configure<DapperService>(dBConnection);
             DapperService._defaultConnection = dBConnection.Value;
-
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
