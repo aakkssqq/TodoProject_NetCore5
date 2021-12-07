@@ -9,8 +9,11 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using ObserverPattern.Services.Dapper;
 using ObserverPattern.Services.Formate;
@@ -32,11 +35,22 @@ namespace ObserverPatternWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
             services.AddControllersWithViews();
 
             services.AddDirectoryBrowser();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMvcCore();
+
+            #region 多國語系
+            services.AddControllersWithViews()
+                .AddViewLocalization()
+                .AddDataAnnotationsLocalization();
+            services.AddLocalization(options =>
+            {
+                //options.ResourcesPath = "OPStrings";
+            });
+            #endregion
 
             // 動態WebApi 必須置於 AddMvc 之後
             services.AddDynamicWebApi();
@@ -83,6 +97,27 @@ namespace ObserverPatternWeb
                 app.UseHsts();
             }
 
+            #region 多國語系
+            var supportedCultures = new List<CultureInfo>()
+            {
+                new CultureInfo("en"),
+                new CultureInfo("ja"),
+                new CultureInfo("zh"),
+                new CultureInfo("zh-CHT"),
+                new CultureInfo("zh-CHS")
+            };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("zh"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
+
+            //var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            //app.UseRequestLocalization(locOptions.Value);
+            #endregion
+
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "小臭記事本 WebApi v1"));
 
@@ -106,7 +141,7 @@ namespace ObserverPatternWeb
                 EnableDirectoryBrowsing = true
             });
 
-            app.UseDeveloperExceptionPage();
+            //app.UseDeveloperExceptionPage();
         }
     }
 }

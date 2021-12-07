@@ -11,6 +11,8 @@
     <Content Remove="Views\Shared\_NavigationOffCanvas.cshtml" />
   </ItemGroup>
 
+
+
   <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
@@ -19,9 +21,13 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
   </ItemGroup>
 
+
+
   <ItemGroup>
     <ProjectReference Include="..\..\ObserverPattern\ObserverPattern.csproj" />
   </ItemGroup>
+
+
 
   <ItemGroup>
     <Content Update="appsettings.json">

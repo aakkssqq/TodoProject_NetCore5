@@ -23,7 +23,33 @@
         <link rel="stylesheet" href="~/css/animate.css" />
         <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
     </environment>
+    <!-- Only for demo purpose -->
+    <environment names="Development">
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/Popper/popper.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/metisMenu/dist/jquery.metisMenu.js"></script>
+        <script src="~/lib/slimScroll/jquery.slimscroll.js"></script>
+        <script src="~/lib/pace/pace.js"></script>
+        <script src="~/lib/axios/dist/axios.min.js"></script>
+        <script src="~/js/script.js" asp-append-version="true"></script>
+    </environment>
 
+    <environment names="Staging,Production">
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/Popper/popper.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="~/lib/metisMenu/dist/jquery.metisMenu.js"></script>
+        <script src="~/lib/pace/pace.min.js"></script>
+        <script src="~/lib/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="~/lib/axios/dist/axios.min.js"></script>
+        <script src="~/js/script.js" asp-append-version="true"></script>
+    </environment>
+
+    <script src="~/js/skin.config.js"></script>
+    @RenderSection("scripts", required: false)
 
 </head>
 <body>
@@ -56,26 +82,5 @@
     </div>
     <!-- End wrapper-->
 
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/Popper/popper.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="~/lib/metisMenu/dist/jquery.metisMenu.js"></script>
-    <script src="~/lib/slimScroll/jquery.slimscroll.js"></script>
-    <script src="~/lib/pace/pace.js"></script>
-    <script src="~/js/script.js" asp-append-version="true"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-    <!-- Only for demo purpose -->
-    <script src="~/js/skin.config.js"></script>
-
-        @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/Popper/popper.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="~/lib/metisMenu/dist/jquery.metisMenu.js"></script>
-        <script src="~/lib/pace/pace.min.js"></script>
-        <script src="~/lib/slimScroll/jquery.slimscroll.min.js"></script>
-        <script src="~/js/script.js" asp-append-version="true"></script>*@
-
-    @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -8,22 +8,31 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Localization;
+using ObserverPatternWeb.Resources.OPStrings;
 
 namespace ObserverPatternWeb.Controllers
 {
     public class HomeController : Controller
     {
-        // 基於dotnet core的依賴注入，注入IMediator物件
         private readonly ILogger<HomeController> _logger;
+        private IStringLocalizer<OPStringsResources> _localizer;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IStringLocalizer<OPStringsResources> localizer)
         {
             _logger = logger;
+            _localizer = localizer;
         }
 
         public async Task<IActionResult> Index()
         {
-            _logger.LogWarning("123456");
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture("ja")),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
             return View();
         }
 

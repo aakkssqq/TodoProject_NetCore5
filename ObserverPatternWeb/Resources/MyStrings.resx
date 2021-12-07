@@ -1,0 +1,657 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="All_Initiator" xml:space="preserve">
+    <value>Submitted by</value>
+  </data>
+  <data name="ISO_Parameter" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+  <data name="ISO_GroupSimple" xml:space="preserve">
+    <value>Small groups</value>
+  </data>
+  <data name="ISO_Permision" xml:space="preserve">
+    <value>rights</value>
+  </data>
+  <data name="ISO_Processing" xml:space="preserve">
+    <value>Signing off!</value>
+  </data>
+  <data name="ISO_NotImplement" xml:space="preserve">
+    <value>Not implemented!</value>
+  </data>
+  <data name="ISO_NearlyExpired" xml:space="preserve">
+    <value>It will be overdue!</value>
+  </data>
+  <data name="ISO_OvetTimeDoc" xml:space="preserve">
+    <value>Expired!</value>
+  </data>
+  <data name="ISO_NearlyAbolished" xml:space="preserve">
+    <value>Will be repealed soon!</value>
+  </data>
+  <data name="ISO_AbolishedDoc" xml:space="preserve">
+    <value>Abolished!</value>
+  </data>
+  <data name="ISO_RetrieveDoc" xml:space="preserve">
+    <value>Reading!</value>
+  </data>
+  <data name="ISO_RetrieveHisDoc" xml:space="preserve">
+    <value>Read it!</value>
+  </data>
+  <data name="ISO_HistoryDoc" xml:space="preserve">
+    <value>Historical files!</value>
+  </data>
+  <data name="ISO_ModifyDoc" xml:space="preserve">
+    <value>Change record!</value>
+  </data>
+  <data name="ISO_UnCollected" xml:space="preserve">
+    <value>unaccalimed!</value>
+  </data>
+  <data name="ISO_Collected" xml:space="preserve">
+    <value>To be recycled!</value>
+  </data>
+  <data name="ISO_OnAffidavit" xml:space="preserve">
+    <value>Cutting the knot!</value>
+  </data>
+  <data name="ISO_OnRecycled" xml:space="preserve">
+    <value>To be archived!</value>
+  </data>
+  <data name="ISO_Archive" xml:space="preserve">
+    <value>Archived!</value>
+  </data>
+  <data name="ISO_Affidavited" xml:space="preserve">
+    <value>Knotted!</value>
+  </data>
+  <data name="ISO_UnRecycled" xml:space="preserve">
+    <value>Not recycled!</value>
+  </data>
+  <data name="ISO_NoRecycled" xml:space="preserve">
+    <value>No need to recycle!</value>
+  </data>
+  <data name="ISO_SystemParameter" xml:space="preserve">
+    <value>System tunables</value>
+  </data>
+  <data name="ISO_SystemParameter_CodingPrincipleParameter" xml:space="preserve">
+    <value>I don't know!</value>
+  </data>
+  <data name="ISO_AddPrincipleParameter" xml:space="preserve">
+    <value>Added!</value>
+  </data>
+  <data name="ISO_EdidPrincipleParameter" xml:space="preserve">
+    <value>I don't know!</value>
+  </data>
+  <data name="ISO_SystemParameter_CodingPrinciple" xml:space="preserve">
+    <value>Coding principles!</value>
+  </data>
+  <data name="ISO_Msg_DeleteCodingPrincipleParameter" xml:space="preserve">
+    <value>The parameter cannot be restored after being deleted. Are you sure you want to delete the parameter setting?\n{0}!</value>
+  </data>
+  <data name="ISO_AddPrinciple" xml:space="preserve">
+    <value>New coding principle!</value>
+  </data>
+  <data name="ISO_EdidPrinciple" xml:space="preserve">
+    <value>Edit coding principles!</value>
+  </data>
+  <data name="ISO_ParameterName" xml:space="preserve">
+    <value>Add Param</value>
+  </data>
+  <data name="ISO_ParameterType" xml:space="preserve">
+    <value>Parameter Type!</value>
+  </data>
+  <data name="ISO_ParameterSetting" xml:space="preserve">
+    <value>Parameter value!</value>
+  </data>
+  <data name="ISO_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ISO_Setting" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="ISO_Msg_DataNotFill" xml:space="preserve">
+    <value>Please check the required information. !</value>
+  </data>
+  <data name="ISO_SaveISOForm" xml:space="preserve">
+    <value>Archives for</value>
+  </data>
+  <data name="ISO_SystemParameter_ProcessParameter" xml:space="preserve">
+    <value>The process is in place!</value>
+  </data>
+  <data name="ISO_ProcessParameter_SettingName" xml:space="preserve">
+    <value>Set name!</value>
+  </data>
+  <data name="ISO_ProcessParameter_ProcessName" xml:space="preserve">
+    <value>Process name!</value>
+  </data>
+  <data name="ISO_ProcessParameter_NodeName" xml:space="preserve">
+    <value>Node name!</value>
+  </data>
+  <data name="ISO_ProcessParameter_ConSignUser" xml:space="preserve">
+    <value>Sign-off staff!</value>
+  </data>
+  <data name="ISO_ProcessParameter_Enable" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="ISO_ProcessParameter_CreateAt" xml:space="preserve">
+    <value>Creation Date</value>
+  </data>
+  <data name="ISO_ProcessParameter_CreateAccount" xml:space="preserve">
+    <value>Build personnel!</value>
+  </data>
+  <data name="ISO_ProcessParameter_Add" xml:space="preserve">
+    <value>New set!</value>
+  </data>
+  <data name="ISO_ProcessParameter_Edit" xml:space="preserve">
+    <value>I'm sure!</value>
+  </data>
+  <data name="ISO_DocName" xml:space="preserve">
+    <value>Paper name</value>
+  </data>
+  <data name="ISO_Ver" xml:space="preserve">
+    <value>versions</value>
+  </data>
+  <data name="ISO_Type" xml:space="preserve">
+    <value>Come on!</value>
+  </data>
+  <data name="ISO_ApplyUser" xml:space="preserve">
+    <value>Applicant</value>
+  </data>
+  <data name="ISO_FillingDate" xml:space="preserve">
+    <value>Fill in the day!</value>
+  </data>
+  <data name="ISO_AbortDate" xml:space="preserve">
+    <value>Make 廢 date!</value>
+  </data>
+  <data name="ISO_DocCode" xml:space="preserve">
+    <value>DOCUMENT NO.</value>
+  </data>
+  <data name="ISO_SN" xml:space="preserve">
+    <value>Ask for it!</value>
+  </data>
+  <data name="ISO_SecurityLevel" xml:space="preserve">
+    <value>Wait!</value>
+  </data>
+  <data name="ISO_StartDate" xml:space="preserve">
+    <value>Use the date!</value>
+  </data>
+  <data name="ISO_EndDate" xml:space="preserve">
+    <value>Disable date</value>
+  </data>
+  <data name="ISO_AlwaysOn" xml:space="preserve">
+    <value>It's never going to work!</value>
+  </data>
+  <data name="ISO_ApplyDate" xml:space="preserve">
+    <value>Date of Application:</value>
+  </data>
+  <data name="ISO_NodeName" xml:space="preserve">
+    <value>Let's go!</value>
+  </data>
+  <data name="ISO_FolderIDName" xml:space="preserve">
+    <value>Categories:</value>
+  </data>
+  <data name="ISO_UpdateReason" xml:space="preserve">
+    <value>More version of the reason!</value>
+  </data>
+  <data name="ISO_Opera" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="ISO_ExecuteUserName" xml:space="preserve">
+    <value>Pedestrians!</value>
+  </data>
+  <data name="ISO_ExecuteTime" xml:space="preserve">
+    <value>Uptime</value>
+  </data>
+  <data name="ISO_AccessReason" xml:space="preserve">
+    <value>Why!</value>
+  </data>
+  <data name="ISO_AccessUserName" xml:space="preserve">
+    <value>Give the elephant!</value>
+  </data>
+  <data name="ISO_ReadPerms" xml:space="preserve">
+    <value>Take the limit!</value>
+  </data>
+  <data name="ActionPerms" xml:space="preserve">
+    <value>Operating limits!</value>
+  </data>
+  <data name="All_Move_Success_Multi" xml:space="preserve">
+    <value>{0} objects have been moved! !</value>
+  </data>
+  <data name="ISO_SystemName" xml:space="preserve">
+    <value>ISO management!</value>
+  </data>
+  <data name="ISO_OutWaterMark" xml:space="preserve">
+    <value>{0} \n [{1} - {2}] </value>
+  </data>
+  <data name="ISO_SelIsoType" xml:space="preserve">
+    <value>The ticks!</value>
+  </data>
+  <data name="ISO_OutExport" xml:space="preserve">
+    <value>OutPut</value>
+  </data>
+  <data name="ISO_PreView" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="ISO_ActionPerms" xml:space="preserve">
+    <value>Operating limits!</value>
+  </data>
+  <data name="ISO_Implement" xml:space="preserve">
+    <value>executed!</value>
+  </data>
+  <data name="ISO_ReAccess" xml:space="preserve">
+    <value>Read it again!</value>
+  </data>
+  <data name="ISO_RecallCaption" xml:space="preserve">
+    <value>Release recycling!</value>
+  </data>
+  <data name="ISO_SearchBoard" xml:space="preserve">
+    <value>Check 詢 public 欄!</value>
+  </data>
+  <data name="ISO_BulletinBoard" xml:space="preserve">
+    <value>The public 欄!</value>
+  </data>
+  <data name="ISO_Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="ISO_Message" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="ISO_CreateAt" xml:space="preserve">
+    <value>It's time!</value>
+  </data>
+  <data name="ISO_MessageType" xml:space="preserve">
+    <value>Categories:</value>
+  </data>
+  <data name="ISO_MyTasks" xml:space="preserve">
+    <value>My Jobs</value>
+  </data>
+  <data name="ISO_ISOFileID" xml:space="preserve">
+    <value>Request!</value>
+  </data>
+  <data name="ISO_ProcessNameType" xml:space="preserve">
+    <value>Categories:</value>
+  </data>
+  <data name="ISO_ISOCode" xml:space="preserve">
+    <value>ISO Code</value>
+  </data>
+  <data name="ISO_Description" xml:space="preserve">
+    <value>Summary!</value>
+  </data>
+  <data name="ISO_ApplyPriority" xml:space="preserve">
+    <value>Come on!</value>
+  </data>
+  <data name="ISO_ViewRecords" xml:space="preserve">
+    <value>Click here recently!</value>
+  </data>
+  <data name="ISO_UserName" xml:space="preserve">
+    <value>Personnel name!</value>
+  </data>
+  <data name="ISO_LastTime" xml:space="preserve">
+    <value>opening time!</value>
+  </data>
+  <data name="ISO_AccessDoc" xml:space="preserve">
+    <value>Read the file!</value>
+  </data>
+  <data name="ISO_HisAccessDoc" xml:space="preserve">
+    <value>Read the record!</value>
+  </data>
+  <data name="ISO_Access" xml:space="preserve">
+    <value>Recall!</value>
+  </data>
+  <data name="ISO_TodoList" xml:space="preserve">
+    <value>Work Matters!</value>
+  </data>
+  <data name="ISO_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ISO_CommonLinks" xml:space="preserve">
+    <value>Frequently used links!</value>
+  </data>
+  <data name="ISO_NewDoc" xml:space="preserve">
+    <value>sites.</value>
+  </data>
+  <data name="ISO_KeyWord" xml:space="preserve">
+    <value>Keyword</value>
+  </data>
+  <data name="ISO_KeyWord_Desc" xml:space="preserve">
+    <value>Please enter query conditions!</value>
+  </data>
+  <data name="ISO_SelStatus" xml:space="preserve">
+    <value>Select Status</value>
+  </data>
+  <data name="ISO_Search" xml:space="preserve">
+    <value>Query</value>
+  </data>
+  <data name="ISO_Canel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ISO_SartTime" xml:space="preserve">
+    <value>Start time</value>
+  </data>
+  <data name="ISO_EndTime" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="IOS_Loading" xml:space="preserve">
+    <value>Loading...!</value>
+  </data>
+  <data name="IOS_Loading_Failure" xml:space="preserve">
+    <value>Reading failed!</value>
+  </data>
+  <data name="ISO_KeyWord_CantNull" xml:space="preserve">
+    <value>The query condition cannot be empty!</value>
+  </data>
+  <data name="ISO_ProcState" xml:space="preserve">
+    <value>The process state!</value>
+  </data>
+  <data name="ISO_TodoList_InputText" xml:space="preserve">
+    <value>Please 輸 into the work!</value>
+  </data>
+  <data name="ISO_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ISO_TitleCantNull" xml:space="preserve">
+    <value>The problem can't be empty!</value>
+  </data>
+  <data name="ISO_InputTitleText" xml:space="preserve">
+    <value>Title is required</value>
+  </data>
+  <data name="ISO_ContentCantNull" xml:space="preserve">
+    <value>The content cannot be empty!</value>
+  </data>
+  <data name="ISO_DateCantNull" xml:space="preserve">
+    <value>The date cannot be empty!</value>
+  </data>
+  <data name="ISO_StartDateCantNull" xml:space="preserve">
+    <value>The start date cannot be empty!</value>
+  </data>
+  <data name="ISO_EndDateCantNull" xml:space="preserve">
+    <value>The deactivated date cannot be empty!</value>
+  </data>
+  <data name="ISO_StatusCantNull" xml:space="preserve">
+    <value>It can't be empty!</value>
+  </data>
+  <data name="ISO_EndCantLessThenStart" xml:space="preserve">
+    <value>Deactivated time can not be less than the time!</value>
+  </data>
+  <data name="ISO_Saving" xml:space="preserve">
+    <value>儲's in storage...!</value>
+  </data>
+  <data name="ISO_Update" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="ISO_Add" xml:space="preserve">
+    <value>Add new!</value>
+  </data>
+  <data name="ISO_Failure" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="ISO_Edit" xml:space="preserve">
+    <value>edit</value>
+  </data>
+  <data name="ISO_LinkAddress" xml:space="preserve">
+    <value>Location!</value>
+  </data>
+  <data name="ISO_OrderIndex" xml:space="preserve">
+    <value>Rank</value>
+  </data>
+  <data name="ISO_Enable" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="ISO_Read" xml:space="preserve">
+    <value>Load</value>
+  </data>
+  <data name="ISO_SysSetting" xml:space="preserve">
+    <value>System Functions</value>
+  </data>
+  <data name="ISO_Levels" xml:space="preserve">
+    <value>ISO Levels</value>
+  </data>
+  <data name="ISO_Create" xml:space="preserve">
+    <value>CREATE</value>
+  </data>
+  <data name="ISO_FolderInfo" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="ISO_ClickTimes" xml:space="preserve">
+    <value>Number of clicks!</value>
+  </data>
+  <data name="ISO_ClickUsers" xml:space="preserve">
+    <value>Click people!</value>
+  </data>
+  <data name="ISO_LastReadTime" xml:space="preserve">
+    <value>Last read time!</value>
+  </data>
+  <data name="ISO_OperaRec" xml:space="preserve">
+    <value>Operation record!</value>
+  </data>
+  <data name="ISO_WaterMarkSetting" xml:space="preserve">
+    <value>Watermark setting!</value>
+  </data>
+  <data name="ISO_MyApplyTasks" xml:space="preserve">
+    <value>My claim!</value>
+  </data>
+  <data name="ISO_DEL" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ISO_WaterMarkList" xml:space="preserve">
+    <value>List of watermarks!</value>
+  </data>
+  <data name="ISO_Msg_DeleteSetting" xml:space="preserve">
+    <value>Do you 刪 to delete the set-up after you've decided to {0}?</value>
+  </data>
+  <data name="ISO_WaterMark" xml:space="preserve">
+    <value>watermark</value>
+  </data>
+  <data name="ISO_WaterMark_Add" xml:space="preserve">
+    <value>Added watermark!</value>
+  </data>
+  <data name="ISO_WaterMark_Edit" xml:space="preserve">
+    <value>Edit the watermark!</value>
+  </data>
+  <data name="ISO_B2BDoc" xml:space="preserve">
+    <value>Outgoing documents</value>
+  </data>
+  <data name="ISO_HisB2BDoc" xml:space="preserve">
+    <value>Outgoing record!</value>
+  </data>
+  <data name="ISO_Group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="ISO_Group_Setting" xml:space="preserve">
+    <value>Group settings!</value>
+  </data>
+  <data name="ISO_Group_Notify" xml:space="preserve">
+    <value>notification group</value>
+  </data>
+  <data name="ISO_AddGroup" xml:space="preserve">
+    <value>Create a group!</value>
+  </data>
+  <data name="ISO_EditGroup" xml:space="preserve">
+    <value>Eeit Objects in a Group</value>
+  </data>
+  <data name="ISO_Group_Name" xml:space="preserve">
+    <value>Group Name</value>
+  </data>
+  <data name="ISO_Group_Type" xml:space="preserve">
+    <value>Group type!</value>
+  </data>
+  <data name="ISO_Group_Member" xml:space="preserve">
+    <value>Group Members</value>
+  </data>
+  <data name="ISO_AuditReport" xml:space="preserve">
+    <value>Audit form!</value>
+  </data>
+  <data name="ISO_Member_Report" xml:space="preserve">
+    <value>Report of Member</value>
+  </data>
+  <data name="ISO_Doc_Report" xml:space="preserve">
+    <value>File list!</value>
+  </data>
+  <data name="ISO_Doc_InternalAudit" xml:space="preserve">
+    <value>Internal Auditing</value>
+  </data>
+  <data name="ISO_Member_Read_Record" xml:space="preserve">
+    <value>讀 take 紀!</value>
+  </data>
+  <data name="ISO_Doc_Status" xml:space="preserve">
+    <value>File status!</value>
+  </data>
+  <data name="ISO_Dept" xml:space="preserve">
+    <value>Dept.</value>
+  </data>
+  <data name="ISO_Abort" xml:space="preserve">
+    <value>Cancel!</value>
+  </data>
+  <data name="ISO_Paper" xml:space="preserve">
+    <value>Paper!</value>
+  </data>
+  <data name="ISO_Extend" xml:space="preserve">
+    <value>Extend!</value>
+  </data>
+  <data name="ISO_Print" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="ISO_Download" xml:space="preserve">
+    <value>Downloads</value>
+  </data>
+  <data name="ISO_DownloadAsPdf" xml:space="preserve">
+    <value>Download the PDF!</value>
+  </data>
+  <data name="ISO_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ISO_Move" xml:space="preserve">
+    <value>Move</value>
+  </data>
+  <data name="ISO_ApplyDept" xml:space="preserve">
+    <value>Application sector!</value>
+  </data>
+  <data name="ISO_DownloadSource" xml:space="preserve">
+    <value>Download the original file!</value>
+  </data>
+  <data name="ISO_DocType" xml:space="preserve">
+    <value>File category!</value>
+  </data>
+  <data name="ISO_Source" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="ISO_PwdError" xml:space="preserve">
+    <value>The original file is encrypted, 覽!!</value>
+  </data>
+  <data name="ISO_FileDelMsg" xml:space="preserve">
+    <value>The file has been deleted!</value>
+  </data>
+</root>
