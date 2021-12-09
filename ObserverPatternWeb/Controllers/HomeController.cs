@@ -28,6 +28,7 @@ namespace ObserverPatternWeb.Controllers
 
         public async Task<IActionResult> Index()
         {
+            _logger.LogError("Test");
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture("ja")),

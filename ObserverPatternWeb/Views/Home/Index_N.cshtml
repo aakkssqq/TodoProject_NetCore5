@@ -1,0 +1,155 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<script>
+    var flickerAPI = site.SSEUrl;
+    if (typeof(EventSource) !== "undefined") {
+        //創建一個新的 EventSource 對象，規定發送更新的頁面的 URL
+        var source = new EventSource(site.SSEUrl);
+        //默認支持open事件
+        source.onopen = function(event) {
+            console.log(source.readyState);
+            console.log(event);
+        };
+        //默認支持error事件
+        source.onerror = function(event) {
+            console.log(source.readyState);
+            console.log(event);
+        };
+        //默認支持message事件
+        source.onmessage = function(event) {
+            console.log(source.readyState);
+            console.log(event);
+            document.getElementById("result").prepend(e.data);
+        };
+
+        //處理伺服器回應新訊息事件
+        source.addEventListener("NewMessage",
+            function(e) {
+                $("#result")[0].innerHTML = "";
+                axios.get(site.MsgUrl,
+                        {
+                            params: {
+                                ID: 12345
+                            }
+                        })
+                    .then(function(response) {
+                        $('#rTable').find('tbody')[0].innerHTML = "";
+                        for (var i = 0; i < response.data.length; i++) {
+                            $('#rTable').find('tbody').append("<tr>" +
+                                "<td>" +
+                                response.data[i].ID +
+                                "</td>" +
+                                "<td>" +
+                                response.data[i].Level +
+                                "</td>" +
+                                "<td>" +
+                                response.data[i].Application +
+                                "</td>" +
+                                "<td>" +
+                                response.data[i].RemoteAddress +
+                                "</td>" +
+                                "<td style=\"overflow: hidden; text-overflow: ellipsis\" title=\"" +
+                                response.data[i].Message +
+                                "\">" +
+                                response.data[i].Message +
+                                "</td>" +
+                                "<td  title=\"" +
+                                response.data[i].Exception +
+                                "\">" +
+                                response.data[i].Exception +
+                                "</td>" +
+                                "</tr>");
+                        }
+                        //console.log(response);
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+                $("#result").prepend('<li>' + e.data + ' </li>');
+            });
+        //處理伺服器回應新任務事件
+        source.addEventListener("NewTasks",
+            function(e) {
+                $("#title")[0].innerHTML = "Welcome</br>" + e.data;
+            });
+        //處理伺服器回應事件
+        source.addEventListener("None",
+            function(e) {
+                $("#result")[0].innerHTML = "";
+                $("#result").prepend('<li>' + e.data + ' </li>');
+                console.log('None');
+            });
+    } else {
+        document.getElementById("result").innerHTML = "抱歉，你的瀏覽器不支持 server-sent 事件...";
+    }
+
+    $(document).ready(function () {
+        $("#upload").click(function (evt) {
+            var fileUpload = $("#files").get(0);
+            var files = fileUpload.files;
+            var data = new FormData();
+            for (var i = 0; i < files.length ; i++ ) {
+                data.append(files[i].name, files[i]);
+            }
+            $.ajax({
+                type: "POST",
+                url: site.UploadUrl,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (obj) {
+                    alert(obj.filesName + "上傳成功");
+                },
+                error: function (obj) {
+                    alert("上傳檔案失敗");
+                }
+            });
+        });
+    });
+
+</script>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+</style>
+
+<div class="text-center">
+    <h1 class="display-4" id="title">Welcome</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" id="files" name="files" multiple />
+        <input type="button" id="upload" value="Upload Selected Files" />
+    </form>
+
+    @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
+    <div>
+        <form>
+            <table id="rTable" style="width: 100%; border: solid; white-space: nowrap; table-layout: fixed;">
+                <thead>
+                    <tr>
+                        <th style="width: 90px">ID</th>
+                        <th style="width: 60px">等級</th>
+                        <th style="width: 120px">來源</th>
+                        <th style="width: 150px">RemoteAddress</th>
+                        <th style="width: 50%">訊息</th>
+                        <th>錯誤訊息</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                    <tr>
+                       <td colspan="6" style="height: 24px"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+    <ul id="result">
+    </ul>
+</div>

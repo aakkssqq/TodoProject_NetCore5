@@ -1,25 +1,30 @@
+using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
+using System.Collections.Generic;
+using NLog;
+using Panda.DynamicWebApi;
+using Swashbuckle.AspNetCore.Swagger;
 using ObserverPattern.Services.Dapper;
 using ObserverPattern.Services.Formate;
 using ObserverPattern.Services.TableData;
-using Panda.DynamicWebApi;
-using Swashbuckle.AspNetCore.Swagger;
+using ObserverPatternWeb.Data;
 
 namespace ObserverPatternWeb
 {
@@ -35,12 +40,27 @@ namespace ObserverPatternWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
 
             services.AddDirectoryBrowser();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddMvcCore();
+
+            #region 登入驗證
+
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //    .AddCookie(option =>
+            //    {
+            //        option.AccessDeniedPath = "/LoginDB/AccessDeny";
+            //        option.LoginPath = "/LoginDB/Login";
+            //    });
+            #endregion
 
             #region 多國語系
             services.AddControllersWithViews()
@@ -81,14 +101,18 @@ namespace ObserverPatternWeb
             var dBConnection = Configuration.GetSection(cnString);
             services.Configure<DapperService>(dBConnection);
             DapperService._defaultConnection = dBConnection.Value;
+
+            services.AddMvcCore();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            LogManager.Configuration.Variables["connectionString"] = Configuration.GetConnectionString("DefaultConnection");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {
@@ -125,7 +149,9 @@ namespace ObserverPatternWeb
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            #region 登入驗證
+            app.UseAuthentication();
+            #endregion
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -133,6 +159,7 @@ namespace ObserverPatternWeb
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
 
             //---ADD
