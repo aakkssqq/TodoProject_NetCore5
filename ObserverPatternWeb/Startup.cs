@@ -68,6 +68,9 @@ namespace ObserverPatternWeb
                 case "Demo":
                     cnStrSetting = "ConnectionStrings:DemoConnection";
                     break;
+                case "Local":
+                    cnStrSetting = "ConnectionStrings:LocalhostConnection";
+                    break;
                 default:
                     cnStrSetting = "ConnectionStrings:DefaultConnection";
                     break;

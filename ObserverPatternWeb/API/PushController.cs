@@ -23,13 +23,16 @@ namespace ObserverPatternWeb.API
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private static IDataServiceBase _dataServicesBase;
+        private static IDataServiceBase _efDataServicesBase;
         private int msgIndex = -1;
         private int taskIndex =-1;
+        private string efQueueIndex = string.Empty;
         private int count = 0;
         
         
         public PushController(IHttpContextAccessor httpContextAccessor, IDataServiceBase dataServicesBase)
         {
+            _efDataServicesBase = new DataServiceBase("Data Source=192.168.0.15;Initial Catalog=DSCSYS;User ID=sa;Password=cmsSA!769; MultipleActiveResultSets=true");
             _dataServicesBase = dataServicesBase;
             _httpContextAccessor = httpContextAccessor;
         }
@@ -38,7 +41,17 @@ namespace ObserverPatternWeb.API
         [HttpGet("{account}")]
         public async Task<IEnumerable<dynamic>> GetData(string account)
         {
-            var items = _dataServicesBase.GetTableData("YZAppISOLog",  20);
+            //var items = _dataServicesBase.GetTableData("SummaryLog",  20);
+            string cmd = @"use DSCSYS
+                            select Top 20  EF001,EF002,EF003,EF004,EF006,EF007,EF008,EF009,EF010,EF011,
+                            D.MB002 as EF001C,A.MB002 as EF002C,MF002 as EF004C
+                            from EFJOBQUE EFJOBQUE
+                            Left Join   DSCMB D on EF001=D.MB001
+                            Left Join   ADMMB A on EF002=A.MB001
+                            Left Join TW_TEST..ADMMF AS ADMMF on EF004=MF001
+                            where  ( EFJOBQUE.EF002= N'PURI05' )  
+                            order by EFJOBQUE.EF008 desc ";
+            var items = _efDataServicesBase.GetTableDataByScript(cmd);
             return await items;
         }
 
@@ -56,28 +69,41 @@ namespace ObserverPatternWeb.API
                     _event = Events.EventType.None.ToString();
                     var data = ServerSentEventData($@" {count}. 無動作", "", _event);
 
-                    var msg = (IDictionary<string, object>)_dataServicesBase.GetTableDataCount("YZAppISOLog").Result.FirstOrDefault();
-                    var task = (IDictionary<string, object>)_dataServicesBase.GetTaskCount().Result.FirstOrDefault();
-
-                    if (msg != null)
-                        if (msgIndex != Convert.ToInt32(msg["ID"]))
+                    string cmd = @"use DSCSYS
+                                    select Top 1  EF001,EF002,EF003,EF004,EF006,EF007,EF008,EF009,EF010,EF011,
+                                    D.MB002 as EF001C,A.MB002 as EF002C,MF002 as EF004C
+                                    from EFJOBQUE EFJOBQUE
+                                    Left Join   DSCMB D on EF001=D.MB001
+                                    Left Join   ADMMB A on EF002=A.MB001
+                                    Left Join TW_TEST..ADMMF AS ADMMF on EF004=MF001
+                                    where  ( EFJOBQUE.EF002= N'PURI05' )  
+                                    order by EFJOBQUE.EF008 desc";
+                    var lastData = (IDictionary<string, object>)_efDataServicesBase.GetTableDataByScript(cmd).Result.FirstOrDefault();
+                    if (lastData != null)
+                        if (efQueueIndex != Convert.ToDateTime(lastData["EF008"]).ToString("yyyyMMddHHmmss"))
                         {
                             count++;
                             _event = Events.EventType.NewMessage.ToString();
-                            if (msgIndex != -1)
-                                data = ServerSentEventData($@" {count}. 訊息更新", msg["ID"].ToString(), _event);
-                            msgIndex = Convert.ToInt32(msg["ID"]);
+                            //if (efQueueIndex != string.Empty)
+                                data = ServerSentEventData($@" {count}. 訊息更新", Convert.ToDateTime(lastData["EF008"]).ToString("yyyyMMddHHmmss"), _event);
+                            efQueueIndex = Convert.ToDateTime(lastData["EF008"]).ToString("yyyyMMddHHmmss");
                         }
 
-                    if (task != null)
-                        if (taskIndex != Convert.ToInt32(task["TaskID"]))
-                        {
-                            count++;
-                            _event = Events.EventType.NewTasks.ToString();
-                            if (taskIndex != -1)
-                                data = ServerSentEventData($@" {count}. {task["SerialNum"]}任務更新", task["TaskID"].ToString(), _event);
-                            taskIndex = Convert.ToInt32(task["TaskID"]);
-                        }
+
+                    #region LogData
+                    //var msg = (IDictionary<string, object>)_dataServicesBase.GetTableDataCount("SummaryLog").Result.FirstOrDefault();
+
+                    //if (msg != null)
+                    //    if (msgIndex != Convert.ToInt32(msg["ID"]))
+                    //    {
+                    //        count++;
+                    //        _event = Events.EventType.NewMessage.ToString();
+                    //        if (msgIndex != -1)
+                    //            data = ServerSentEventData($@" {count}. 訊息更新", msg["ID"].ToString(), _event);
+                    //        msgIndex = Convert.ToInt32(msg["ID"]);
+                    //    }
+                    #endregion
+
 
                     await response.WriteAsync(data);
 

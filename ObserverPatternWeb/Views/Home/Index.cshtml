@@ -39,26 +39,26 @@
                         for (var i = 0; i < response.data.length; i++) {
                             $('#rTable').find('tbody').append("<tr>" +
                                 "<td>" +
-                                response.data[i].ID +
+                                response.data[i].EF003 +
                                 "</td>" +
                                 "<td>" +
-                                response.data[i].Level +
+                                response.data[i].EF001 +
                                 "</td>" +
                                 "<td>" +
-                                response.data[i].Application +
+                                response.data[i].EF004C +
                                 "</td>" +
                                 "<td>" +
-                                response.data[i].RemoteAddress +
+                                response.data[i].EF001C +
                                 "</td>" +
                                 "<td style=\"overflow: hidden; text-overflow: ellipsis\" title=\"" +
-                                response.data[i].Message +
+                                response.data[i].EF002C +
                                 "\">" +
-                                response.data[i].Message +
+                                response.data[i].EF002C +
                                 "</td>" +
                                 "<td  title=\"" +
-                                response.data[i].Exception +
+                                response.data[i].EF007 +
                                 "\">" +
-                                response.data[i].Exception +
+                                response.data[i].EF007 +
                                 "</td>" +
                                 "</tr>");
                         }
@@ -132,7 +132,7 @@
             <table id="rTable" style="width: 100%; border: solid; white-space: nowrap; table-layout: fixed;">
                 <thead>
                     <tr>
-                        <th style="width: 90px">ID</th>
+                        <th style="width: 140px">ID</th>
                         <th style="width: 60px">等級</th>
                         <th style="width: 120px">來源</th>
                         <th style="width: 150px">RemoteAddress</th>
