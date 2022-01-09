@@ -2,12 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ObserverPattern.Base.Organization;
 
-namespace ASPNET_Core_2_1.Controllers
+namespace ObserverPatternWeb.Controllers
 {
-    public class MailboxController : Controller
+    [Authorize]
+    public class MailboxController : BaseController
     {
+
+        [ViewData]
+        public CusUser User => OPUser;
+
         public IActionResult Inbox()
         {
             return View();

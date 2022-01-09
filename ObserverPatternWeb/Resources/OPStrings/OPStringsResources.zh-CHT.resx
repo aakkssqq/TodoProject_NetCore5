@@ -118,9 +118,51 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CompanyName" xml:space="preserve">
-    <value>喵</value>
+    <value>小貓咪工作坊</value>
   </data>
   <data name="CompanyShotName" xml:space="preserve">
     <value>喵+</value>
+  </data>
+  <data name="PersonManage" xml:space="preserve">
+    <value>個人資訊</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>登錄</value>
+  </data>
+  <data name="WelcomeText" xml:space="preserve">
+    <value>歡迎使用</value>
+  </data>
+  <data name="WelcomeContext" xml:space="preserve">
+    <value>小猫的實作系统。</value>
+  </data>
+  <data name="LogInTitle" xml:space="preserve">
+    <value>登入。使用系统。</value>
+  </data>
+  <data name="LogInAccountText" xml:space="preserve">
+    <value>請輸入帳號</value>
+  </data>
+  <data name="LogInPasswordText" xml:space="preserve">
+    <value>請輸入密碼</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>忘記密碼?</value>
+  </data>
+  <data name="NotHaveAccount" xml:space="preserve">
+    <value>沒有帳號？</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>建立帳號</value>
+  </data>
+  <data name="LogInBirthDayText" xml:space="preserve">
+    <value>請輸入生日</value>
+  </data>
+  <data name="LogInEmailText" xml:space="preserve">
+    <value>請輸入電子郵件</value>
+  </data>
+  <data name="TopNavbarTitle" xml:space="preserve">
+    <value>歡迎使用小貓咪的實作系统。</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>登出</value>
   </data>
 </root>

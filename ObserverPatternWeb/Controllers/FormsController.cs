@@ -2,12 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ObserverPattern.Base.Organization;
 
-namespace ASPNET_Core_2_1.Controllers
+namespace ObserverPatternWeb.Controllers
 {
-    public class FormsController : Controller
+    [Authorize]
+    public class FormsController : BaseController
     {
+        [ViewData]
+        public CusUser User => OPUser;
+
         public IActionResult BasicFroms()
         {
             return View();

@@ -123,4 +123,46 @@
   <data name="CompanyShotName" xml:space="preserve">
     <value>喵+</value>
   </data>
+  <data name="PersonManage" xml:space="preserve">
+    <value>管理</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="WelcomeText" xml:space="preserve">
+    <value>欢迎来到</value>
+  </data>
+  <data name="WelcomeContext" xml:space="preserve">
+    <value>小猫的执行系统。</value>
+  </data>
+  <data name="LogInTitle" xml:space="preserve">
+    <value>登录。使用本系统。</value>
+  </data>
+  <data name="LogInAccountText" xml:space="preserve">
+    <value>請輸入帳號</value>
+  </data>
+  <data name="LogInPasswordText" xml:space="preserve">
+    <value>請輸入密碼</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>忘記密碼?</value>
+  </data>
+  <data name="NotHaveAccount" xml:space="preserve">
+    <value>还没有账号？</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>创建一个帐户</value>
+  </data>
+  <data name="LogInBirthDayText" xml:space="preserve">
+    <value>請輸入生日</value>
+  </data>
+  <data name="LogInEmailText" xml:space="preserve">
+    <value>請輸入電子郵件!</value>
+  </data>
+  <data name="TopNavbarTitle" xml:space="preserve">
+    <value>欢迎使用 Cat 的实施系统。！</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>注销</value>
+  </data>
 </root>
