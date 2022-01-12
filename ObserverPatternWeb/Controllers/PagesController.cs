@@ -20,7 +20,7 @@ using ObserverPatternWeb.Resources.OPStrings;
 
 namespace ObserverPatternWeb.Controllers
 {
-    public class PagesController : Controller
+    public class PagesController : BaseController
     {
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
         private readonly IEmailSender _emailSender;

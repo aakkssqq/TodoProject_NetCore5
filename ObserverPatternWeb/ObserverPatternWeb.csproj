@@ -4,13 +4,6 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Content Remove="Views\Shared\_Layout_2.cshtml" />
-    <Content Remove="Views\Shared\_Layout_3.cshtml" />
-    <Content Remove="Views\Shared\_Layout_4.cshtml" />
-    <Content Remove="Views\Shared\_NavigationOffCanvas.cshtml" />
-  </ItemGroup>
-
 
 
   <ItemGroup>

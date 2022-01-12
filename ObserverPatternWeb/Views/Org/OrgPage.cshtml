@@ -1,0 +1,135 @@
+﻿
+@{ ViewData["Title"] = "OrgPage"; }
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Tree view</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("Dashboard_1", "Dashboards")">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a>Miscellaneous</a>
+            </li>
+            <li class="active breadcrumb-item">
+                <strong>Tree view</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>JSON example</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <div id="using_json"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section Styles {
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/jstree/dist/themes/default/style.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/jstree/dist/themes/default/style.min.css" />
+    </environment>
+}
+
+@section Scripts {
+    <environment names="Development">
+        <script src="~/lib/jstree/dist/jstree.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/jstree/dist/jstree.min.js"></script>
+    </environment>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var moveNode = function(node1, parent1, position1, more1) {
+                 throw new Error("Not implemented");
+            };
+            var copyNode = function(node2, parent2, position2, more2) {
+                 throw new Error("Not implemented");
+            };
+            $('#using_json').jstree({
+                'plugins': ["dnd", "html_data", "state", "types", "wholerow"],
+                'core': {
+                    "check_callback": function (op, node, parent, position, more) {
+                        switch (op) {
+                        case 'move_node':
+                            return moveNode(node, parent, position, more);
+                        case 'copy_node':
+                            return copyNode(node, parent, position, more);
+                        }
+                    },
+                    "multiple": false,
+                    "dnd" : {
+                        "drop_finish" : function () { 
+                            alert("DROP"); 
+                        },
+                        "drag_check" : function (data) {
+                            if(data.r.attr("id") == "phtml_1") {
+                                return false;
+                            }
+                            return { 
+                                after : false, 
+                                before : false, 
+                                inside : true 
+                            };
+                        },
+                        "drag_finish" : function (data) { 
+                            alert("DRAG OK"); 
+                        }
+                    },
+                    'data' : function (obj, callback) { 
+                        var jsonstr="[]"; 
+                        var jsonarray = eval('('+jsonstr+')'); 
+                        $.ajax({ 
+                            type: "GET", 
+                            url:"/api/DataServiceBase/TableData?tableName=ObsOUs", 
+                            dataType:"json", 
+                            async: false, 
+                            success:function(result) { 
+                                var arrays= result; 
+                                for(var i=0 ; i<arrays.length; i++){ 
+                                    console.log(arrays[i]) 
+                                    var arr = { 
+                                        "id": arrays[i].OUID, 
+                                        "parent": arrays[i].ParentOUID == null ? "#" : arrays[i].ParentOUID, 
+                                        "text": arrays[i].OUName 
+                                    } 
+                                    jsonarray.push(arr); 
+                                } 
+                            } 
+ 
+                        }); 
+                        callback.call(this, jsonarray); 
+                    },
+                    "state": { "key": "0" }, 
+                }
+            });
+
+        });
+    </script>
+}
