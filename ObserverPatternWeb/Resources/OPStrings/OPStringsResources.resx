@@ -145,7 +145,7 @@
     <value>Please enter your password</value>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
-    <value>Forgot password</value>
+    <value>Forgot password?</value>
   </data>
   <data name="NotHaveAccount" xml:space="preserve">
     <value>Do not have an account?</value>
@@ -176,5 +176,23 @@
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
+  </data>
+  <data name="OrgManagement" xml:space="preserve">
+    <value>Organization management</value>
+  </data>
+  <data name="OrgTree" xml:space="preserve">
+    <value>Organize the tree</value>
+  </data>
+  <data name="Ou_Create" xml:space="preserve">
+    <value>New unit</value>
+  </data>
+  <data name="Ou_Delete" xml:space="preserve">
+    <value>Delete unit</value>
+  </data>
+  <data name="Ou_Rename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="Ou_NewUnitl" xml:space="preserve">
+    <value>New unit</value>
   </data>
 </root>

@@ -157,24 +157,42 @@
     <value>請輸入生日</value>
   </data>
   <data name="LogInEmailText" xml:space="preserve">
-    <value>請輸入電子郵件!</value>
+    <value>請輸入電子郵件</value>
   </data>
   <data name="TopNavbarTitle" xml:space="preserve">
-    <value>欢迎使用 Cat 的实施系统。！</value>
+    <value>欢迎使用 Cat 的实施系统。</value>
   </data>
   <data name="LogOut" xml:space="preserve">
     <value>注销</value>
   </data>
   <data name="Profile" xml:space="preserve">
-    <value>簡介!</value>
+    <value>簡介</value>
   </data>
   <data name="Contacts" xml:space="preserve">
     <value>聯絡人</value>
   </data>
   <data name="Mailbox" xml:space="preserve">
-    <value>信箱!</value>
+    <value>信箱</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>用户面板</value>
+  </data>
+  <data name="OrgManagement" xml:space="preserve">
+    <value>組織管理</value>
+  </data>
+  <data name="OrgTree" xml:space="preserve">
+    <value>組織樹</value>
+  </data>
+  <data name="Ou_Create" xml:space="preserve">
+    <value>新增單位</value>
+  </data>
+  <data name="Ou_Delete" xml:space="preserve">
+    <value>刪除單位</value>
+  </data>
+  <data name="Ou_Rename" xml:space="preserve">
+    <value>重新命名</value>
+  </data>
+  <data name="Ou_NewUnitl" xml:space="preserve">
+    <value>新單位</value>
   </data>
 </root>

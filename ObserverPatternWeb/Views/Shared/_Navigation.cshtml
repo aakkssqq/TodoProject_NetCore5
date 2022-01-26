@@ -42,9 +42,9 @@
             </ul>
         </li>
         <li class="@Html.IsSelected(controller: "Org")">
-            <a href="@Url.Action("OrgPage", "Org")"><i class="fa fa fa-vcard-o"></i> <span class="nav-label" data-i18n="nav.dashboard">@L["Dashboard"]</span> <span class="fa arrow"></span></a>
+            <a href="@Url.Action("OrgPage", "Org")"><i class="fa fa fa-vcard-o"></i> <span class="nav-label" data-i18n="nav.dashboard">@L["OrgManagement"]</span> <span class="fa arrow"></span></a>
             <ul class="nav nav-second-level collapse @Html.IsSelected(controller: " Org", cssClass: "in" )">
-                <li class="@Html.IsSelected(action: "OrgPage")"><a href="@Url.Action("OrgPage", "Org")">Empty page</a></li>
+                <li class="@Html.IsSelected(action: "OrgPage")"><a href="@Url.Action("OrgPage", "Org")">@L["OrgTree"]</a></li>
                 @*<li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")">@L["Dashboard"] v.2</a></li>
                 <li class="@Html.IsSelected(action: "Dashboard_3")"><a href="@Url.Action("Dashboard_3", "Dashboards")">@L["Dashboard"] v.3</a></li>
                 <li class="@Html.IsSelected(action: "Dashboard_4_1")"><a href="@Url.Action("Dashboard_4_1", "Dashboards")">@L["Dashboard"] v.4</a></li>

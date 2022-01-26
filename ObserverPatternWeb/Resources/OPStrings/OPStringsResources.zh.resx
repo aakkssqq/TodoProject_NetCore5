@@ -145,7 +145,7 @@
     <value>請輸入密碼</value>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
-    <value>忘記密碼</value>
+    <value>忘記密碼?</value>
   </data>
   <data name="NotHaveAccount" xml:space="preserve">
     <value>沒有帳號？</value>
@@ -172,9 +172,27 @@
     <value>聯絡人</value>
   </data>
   <data name="Mailbox" xml:space="preserve">
-    <value>信箱!</value>
+    <value>信箱</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>儀錶板</value>
+  </data>
+  <data name="OrgManagement" xml:space="preserve">
+    <value>組織管理</value>
+  </data>
+  <data name="OrgTree" xml:space="preserve">
+    <value>組織樹</value>
+  </data>
+  <data name="Ou_Create" xml:space="preserve">
+    <value>新增單位</value>
+  </data>
+  <data name="Ou_Delete" xml:space="preserve">
+    <value>刪除單位</value>
+  </data>
+  <data name="Ou_Rename" xml:space="preserve">
+    <value>重新命名</value>
+  </data>
+  <data name="Ou_NewUnitl" xml:space="preserve">
+    <value>新單位</value>
   </data>
 </root>

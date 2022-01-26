@@ -148,16 +148,16 @@
     <value>パスワードをお忘れですか？</value>
   </data>
   <data name="NotHaveAccount" xml:space="preserve">
-    <value>アカウントをお持ちですか</value>
+    <value>アカウントをお持ちですか?</value>
   </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>创建一个帐户</value>
   </data>
   <data name="LogInBirthDayText" xml:space="preserve">
-    <value>誕生日を入力して下さい！</value>
+    <value>誕生日を入力して下さい</value>
   </data>
   <data name="LogInEmailText" xml:space="preserve">
-    <value>メールアドレスを入力してください！</value>
+    <value>メールアドレスを入力してください</value>
   </data>
   <data name="TopNavbarTitle" xml:space="preserve">
     <value>Catの実装システムへようこそ。</value>
@@ -166,15 +166,33 @@
     <value>ログアウトします</value>
   </data>
   <data name="Profile" xml:space="preserve">
-    <value>序章！</value>
+    <value>序章</value>
   </data>
   <data name="Contacts" xml:space="preserve">
-    <value>担当者名：</value>
+    <value>担当者名</value>
   </data>
   <data name="Mailbox" xml:space="preserve">
-    <value>メールボックス！</value>
+    <value>メールボックス</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>ダッシュボード</value>
+  </data>
+  <data name="OrgManagement" xml:space="preserve">
+    <value>組織管理</value>
+  </data>
+  <data name="OrgTree" xml:space="preserve">
+    <value>ツリーを整理してください</value>
+  </data>
+  <data name="Ou_Create" xml:space="preserve">
+    <value>新しいユニット</value>
+  </data>
+  <data name="Ou_Delete" xml:space="preserve">
+    <value>ユニットを削除</value>
+  </data>
+  <data name="Ou_Rename" xml:space="preserve">
+    <value>名前を変更してください</value>
+  </data>
+  <data name="Ou_NewUnitl" xml:space="preserve">
+    <value>新しいユニット</value>
   </data>
 </root>

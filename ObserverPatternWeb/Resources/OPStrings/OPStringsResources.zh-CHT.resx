@@ -177,4 +177,22 @@
   <data name="Dashboard" xml:space="preserve">
     <value>儀錶板</value>
   </data>
+  <data name="OrgManagement" xml:space="preserve">
+    <value>組織管理</value>
+  </data>
+  <data name="OrgTree" xml:space="preserve">
+    <value>組織樹</value>
+  </data>
+  <data name="Ou_Create" xml:space="preserve">
+    <value>新增單位</value>
+  </data>
+  <data name="Ou_Delete" xml:space="preserve">
+    <value>刪除單位</value>
+  </data>
+  <data name="Ou_Rename" xml:space="preserve">
+    <value>重新命名</value>
+  </data>
+  <data name="Ou_NewUnitl" xml:space="preserve">
+    <value>新單位</value>
+  </data>
 </root>

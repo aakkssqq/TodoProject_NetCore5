@@ -1,4 +1,6 @@
-﻿
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using ObserverPatternWeb.Resources.OPStrings
+@inject IHtmlLocalizer<OPStringsResources> L
 @{ ViewData["Title"] = "OrgPage"; }
 
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -21,6 +23,39 @@
     </div>
 </div>
 <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="modal inmodal" id="createModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">新增單位</h4>
+                    <small class="font-bold">請輸入單位資訊後點及新增單位.</small>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>單位名稱</label>
+                        <input id="CreateOuName" type="text" placeholder="請輸入單位名稱" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>單位編碼</label>
+                        <input id="CreateOuCode" type="text" placeholder="請輸入單位編碼" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>單位級別</label>
+                        <input id="CreateOuLevel" type="text" placeholder="請輸入單位級別" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>單位排序</label>
+                        <input id="CreateOuIndex" type="text" placeholder="請輸入單位排序" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="CreateNode()">建立單位</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-3">
             <div class="ibox ">
@@ -36,100 +71,309 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-
                     <div id="using_json"></div>
-
                 </div>
             </div>
         </div>
     </div>
-
+    <div id="myMenu">
+        <ul>
+            <li onclick="xianshi();">顯示</li>
+            <li onclick="yc();">隱藏</li>
+        </ul>
+    </div>
 
 </div>
 
 @section Styles {
     <environment names="Development">
-        <link rel="stylesheet" href="~/lib/jstree/dist/themes/default/style.css" />
+        <link rel="stylesheet" href="~/lib/sweetalert/dist/sweetalert.css" />
+        <link rel="stylesheet" href="~/lib/jstree/dist/themes/default/style.css"/>
     </environment>
     <environment names="Staging,Production">
-        <link rel="stylesheet" href="~/lib/jstree/dist/themes/default/style.min.css" />
+        <link rel="stylesheet" href="~/lib/sweetalert/dist/sweetalert.css" />
+        <link rel="stylesheet" href="~/lib/jstree/dist/themes/default/style.min.css"/>
     </environment>
 }
 
 @section Scripts {
     <environment names="Development">
+        <script src="~/lib/sweetalert/dist/sweetalert-dev.js"></script>
         <script src="~/lib/jstree/dist/jstree.js"></script>
     </environment>
     <environment names="Staging,Production">
+        <script src="~/lib/sweetalert/dist/sweetalert.min.js"></script>
         <script src="~/lib/jstree/dist/jstree.min.js"></script>
     </environment>
 
     <script type="text/javascript">
-        $(document).ready(function () {
+        var nodeData;
+
+        $(document).ready(function() {
+            $("#using_json")
+                .on('select_node.jstree',
+                    function(e, data) {
+                        alert('select_node.jstree');
+                        //$app.debug('select_node completed', data);
+                    })
+                .on('copy_node.jstree',
+                    function(e, data) {
+                        alert('copy_node.jstree');
+                        //$app.debug('copy_node completed', data);
+                    })
+                .on('move_node.jstree',
+                    function(e, data) {
+                        $.ajax({
+                            type: "GET",
+                            url: "test.php",
+                            dataType: "html",
+                            data: { user: "tony", pwd: 123 },
+                            success: function(data) {
+                                $("#result").html(data);
+                            },
+                            error: function(xhr) {
+                                alert(xhr.status);
+                            }
+                        });
+                        alert('move_node.jstree');
+                        // this is where you connect to the server!
+                        //doMoveNode(data);
+                    })
+                .jstree({
+                    "state": { "key": "demo2" },
+                    "plugins": ["dnd", "state", "wholerow", "contextmenu"],
+                    'core': {
+                        "themes": {
+                            "responsive": false
+                        },
+                        // so that create works
+                        "check_callback": true,
+                        'data': function(obj, callback) {
+                            var jsonstr = "[]";
+                            var jsonarray = eval('(' + jsonstr + ')');
+                            $.ajax({
+                                type: "GET",
+                                url: "/api/DataServiceBase/TableData?tableName=ObsOUs",
+                                dataType: "json",
+                                async: false,
+                                success: function(result) {
+                                    var arrays = result;
+                                    for (var i = 0; i < arrays.length; i++) {
+                                        console.log(arrays[i])
+                                        var arr = {
+                                            "id": arrays[i].OUID,
+                                            "parent": arrays[i].ParentOUID == null ? "#" : arrays[i].ParentOUID,
+                                            "text": arrays[i].OUName,
+                                            "code": arrays[i].OUCode,
+                                            "level": arrays[i].Level
+                                        }
+                                        jsonarray.push(arr);
+                                    }
+                                },
+                                error: function(xhr) {
+                                    alert(xhr.status);
+                                }
+                            });
+                            callback.call(this, jsonarray);
+                        }
+                    },
+                    'contextmenu': {
+                        'items': customMenu
+                    }
+                });
             var moveNode = function(node1, parent1, position1, more1) {
-                 throw new Error("Not implemented");
+                alert("moveNode");
             };
             var copyNode = function(node2, parent2, position2, more2) {
-                 throw new Error("Not implemented");
+                alert("copyNode");
             };
-            $('#using_json').jstree({
-                'plugins': ["dnd", "html_data", "state", "types", "wholerow"],
-                'core': {
-                    "check_callback": function (op, node, parent, position, more) {
-                        switch (op) {
-                        case 'move_node':
-                            return moveNode(node, parent, position, more);
-                        case 'copy_node':
-                            return copyNode(node, parent, position, more);
+
+
+        });
+
+        function customMenu(node) {
+            var items = {
+                "Ou_Create": {
+                    "label": "@L["Ou_Create"]",
+                    "icon": "fa fa-plus-square-o",
+                    "action": function(data) {
+                        nodeData = data;
+                        $("#createModal").modal("show");
+                    }
+                },
+                "Ou_Rename": {
+                    "separator_before": false,
+                    "separator_after": false,
+                    "_disabled": false, //(this.check("rename_node", data.reference, this.get_parent(data.reference), "")),
+                    "label": "@L["Ou_Rename"]",
+                    "shortcut_label": "F2",
+                    "icon": "glyphicon glyphicon-leaf",
+                    "action": function(data) {
+                        var inst = $.jstree.reference(data.reference), obj = inst.get_node(data.reference);
+                        inst.edit(obj);
+                    }
+                },
+                "Ou_Delete": {
+                    "separator_before": false,
+                    "icon": false,
+                    "separator_after": false,
+                    "_disabled": false, //(this.check("delete_node", data.reference, this.get_parent(data.reference), "")),
+                    "label": "@L["Ou_Delete"]",
+                    "icon": "glyphicon glyphicon-remove",
+                    "action": function(data) {
+                        var inst = $.jstree.reference(data.reference),
+                            obj = inst.get_node(data.reference);
+                        if (inst.is_selected(obj)) {
+                            inst.delete_node(inst.get_selected());
+                        } else {
+                            inst.delete_node(obj);
                         }
-                    },
-                    "multiple": false,
-                    "dnd" : {
-                        "drop_finish" : function () { 
-                            alert("DROP"); 
-                        },
-                        "drag_check" : function (data) {
-                            if(data.r.attr("id") == "phtml_1") {
-                                return false;
-                            }
-                            return { 
-                                after : false, 
-                                before : false, 
-                                inside : true 
-                            };
-                        },
-                        "drag_finish" : function (data) { 
-                            alert("DRAG OK"); 
-                        }
-                    },
-                    'data' : function (obj, callback) { 
-                        var jsonstr="[]"; 
-                        var jsonarray = eval('('+jsonstr+')'); 
-                        $.ajax({ 
-                            type: "GET", 
-                            url:"/api/DataServiceBase/TableData?tableName=ObsOUs", 
-                            dataType:"json", 
-                            async: false, 
-                            success:function(result) { 
-                                var arrays= result; 
-                                for(var i=0 ; i<arrays.length; i++){ 
-                                    console.log(arrays[i]) 
-                                    var arr = { 
-                                        "id": arrays[i].OUID, 
-                                        "parent": arrays[i].ParentOUID == null ? "#" : arrays[i].ParentOUID, 
-                                        "text": arrays[i].OUName 
-                                    } 
-                                    jsonarray.push(arr); 
-                                } 
-                            } 
- 
-                        }); 
-                        callback.call(this, jsonarray); 
-                    },
-                    "state": { "key": "0" }, 
+                    }
+                }
+            }
+
+            return items;
+        }
+
+        function CreateNode() {
+            var name = $("#CreateOuName").val();
+            var code = $("#CreateOuCode").val();
+            var level = $("#CreateOuLevel").val();
+            var ouIndex = $("#CreateOuIndex").val();
+
+            if (!name || !code || !level || !ouIndex) {
+                var alertStr = "";
+                if (!name)
+                    alertStr = alertStr + " 請輸入單位名稱 ! ";
+                if (!code)
+                    alertStr = alertStr + " 請輸入單位編號 ! ";
+                if (!level)
+                    alertStr = alertStr + " 請輸入單位級別 ! ";
+                if (!ouIndex)
+                    alertStr = alertStr + " 請輸入單位排序 ! ";
+                swal({
+                    icon: "error",
+                    title: " =輸入資料錯誤= ",
+                    text: alertStr
+                });
+                return false;
+            }
+
+            var inst = $.jstree.reference(nodeData.reference), obj = inst.get_node(nodeData.reference);
+            var ou = {
+                "ouid": 0,
+                "ouCode": code,
+                "ouName": name,
+                "level": level,
+                "parentOUID": obj.id,
+                "guid": "",
+                "orderIndex": ouIndex
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/api/OUServiceBase",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(ou),
+                async: true,
+                success: function(result) {
+                    if (!!result) {
+                        var new_node = {};
+                        new_node.parent = ou.parentOUID;
+                        new_node.text = ou.ouName;
+                        new_node.code = ou.ouCode;
+                        new_node.level = ou.level;
+
+                        inst.create_node(obj, new_node);
+                        $("#createModal").modal("hide");
+                    }
+                },
+                error: function(xhr) {
+                    alert(xhr.status);
                 }
             });
 
-        });
+            //var inst = $.jstree.reference(nodeData.reference), obj = inst.get_node(nodeData.reference);
+            //inst.create_node(obj, {}, "last", function(new_node) {
+            //        try {
+            //            new_node.text = name;
+            //            var ou = {
+            //                "ouid": 0,
+            //                "ouCode": code,
+            //                "ouName": name,
+            //                "level": level,
+            //                "parentOUID": obj.id,
+            //                "guid": "",
+            //                "orderIndex": ouIndex
+            //            }
+
+
+            //            //inst.edit(new_node);
+            //        } catch (ex) {
+            //            setTimeout(function() { inst.edit(new_node); }, 0);
+            //        }
+            //    });
+        }
+
+        ////滑鼠右鍵預設選單事件
+        //document.oncontextmenu = function(ev) {
+        //    var oevent = ev || event;
+        //    var myMenu = document.getElementById('myMenu');
+        //    //彈出自定義選單
+        //    myMenu.style.display = 'block';
+        //    //設定自定義選單的座標，達到滑鼠右鍵的地方彈出自定義選單
+        //    myMenu.style.left = oevent.x + 'px';
+        //    myMenu.style.top = oevent.y + 'px';
+
+        //    //禁用右鍵預設選單
+        //    return false;
+        //}
+        ////點選頁面任意區域，隱藏自定義選單
+        //document.onclick = function() {
+        //    var myMenu = document.getElementById('myMenu');
+        //    myMenu.style.display = 'none';
+        //}
+        ////顯示div
+        //function xianshi(){
+        //    var myDiv = document.getElementById('myDiv');
+        //    myDiv.style.display="block";
+        //}
+        ////隱藏div
+        //function yc(){
+        //    var myDiv = document.getElementById('myDiv');
+        //    myDiv.style.display="none";
+        //}
     </script>
+    <style>
+        #myMenu {
+            width: 80px;
+            background: white;
+            display: none;
+            position: absolute;
+            border: 1px solid #EED5D2;
+            z-index: 999
+        }
+
+        #myMenu ul {
+            list-style: none;
+        }
+
+        #myMenu ul li {
+            width: 50px;
+            height: 20px;
+            background: #FFE4B5;
+            margin-bottom: 5px;
+            text-align: center;
+            margin-left: -25px
+        }
+
+        #myDiv {
+            border: 1px solid red;
+            width: 100px;
+            height: 100px;
+            display: block;
+            margin: 200px auto;
+        }
+    </style>
 }
