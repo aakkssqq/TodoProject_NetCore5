@@ -123,4 +123,76 @@
   <data name="CompanyShotName" xml:space="preserve">
     <value>Cat+</value>
   </data>
+  <data name="PersonManage" xml:space="preserve">
+    <value>Manage</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="WelcomeText" xml:space="preserve">
+    <value>Welcome to</value>
+  </data>
+  <data name="WelcomeContext" xml:space="preserve">
+    <value>The kitty's implementation system.</value>
+  </data>
+  <data name="LogInTitle" xml:space="preserve">
+    <value>Login in. To use this System.</value>
+  </data>
+  <data name="LogInAccountText" xml:space="preserve">
+    <value>please enter your account</value>
+  </data>
+  <data name="LogInPasswordText" xml:space="preserve">
+    <value>Please enter your password</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Forgot password?</value>
+  </data>
+  <data name="NotHaveAccount" xml:space="preserve">
+    <value>Do not have an account?</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Create an account</value>
+  </data>
+  <data name="LogInBirthDayText" xml:space="preserve">
+    <value>Please enter your birthday</value>
+  </data>
+  <data name="LogInEmailText" xml:space="preserve">
+    <value>Please enter email</value>
+  </data>
+  <data name="TopNavbarTitle" xml:space="preserve">
+    <value>Welcome to Cat Cat's Implementation System.</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Contact Person</value>
+  </data>
+  <data name="Mailbox" xml:space="preserve">
+    <value>Mailbox</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="OrgManagement" xml:space="preserve">
+    <value>Organization management</value>
+  </data>
+  <data name="OrgTree" xml:space="preserve">
+    <value>Organize the tree</value>
+  </data>
+  <data name="Ou_Create" xml:space="preserve">
+    <value>New unit</value>
+  </data>
+  <data name="Ou_Delete" xml:space="preserve">
+    <value>Delete unit</value>
+  </data>
+  <data name="Ou_Rename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="Ou_NewUnitl" xml:space="preserve">
+    <value>New unit</value>
+  </data>
 </root>

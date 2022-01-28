@@ -18,13 +18,16 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using NLog;
+using ObserverPattern.Base.Organization;
 using Panda.DynamicWebApi;
 using Swashbuckle.AspNetCore.Swagger;
 using ObserverPattern.Services.Dapper;
 using ObserverPattern.Services.Formate;
 using ObserverPattern.Services.TableData;
 using ObserverPatternWeb.Data;
+using ObserverPatternWeb.Middlewares;
 
 namespace ObserverPatternWeb
 {
@@ -40,27 +43,69 @@ namespace ObserverPatternWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //判斷環境
+            string cnSetting = Configuration.GetSection("Environment").Value;
+            string cnStrSetting = $@"{cnSetting.Substring(0, 1).ToUpper()}{cnSetting.Substring(1, cnSetting.Length - 1)}Connection";
+            var cnString = Configuration.GetConnectionString(cnStrSetting) != null ? $@"ConnectionStrings:{cnStrSetting}" : "ConnectionStrings:DefaultConnection";
+
+            #region 登入驗證
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDatabaseDeveloperPageExceptionFilter();
+                    Configuration.GetConnectionString(cnStrSetting)));
+            //services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            // Password settings  
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;    //密碼不需要有數字
+                options.Password.RequiredLength = 8;     //密碼至少要8個字元長
+                options.Password.RequireNonAlphanumeric = false;  //不需要符號字元
+                options.Password.RequireUppercase = false;         //不需要大寫英文字母
+                options.Password.RequireLowercase = false;        //不一定要有小寫英文字母
+                options.Password.RequiredUniqueChars = 6;         //至少要有個字元不一樣
+
+                // Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);  //5分鐘沒有動靜就自動鎖住定網站，預設5分鐘
+                options.Lockout.MaxFailedAccessAttempts = 3;                       //三次密碼誤就鎖定網站, 預設5次
+                options.Lockout.AllowedForNewUsers = true;                         //新增的使用者也會被鎖定，就是犯規沒有新人優待
+
+                // User settings  
+                options.User.RequireUniqueEmail = true;             //郵箱不能重覆使用
+            });
+
+            services.AddDefaultIdentity<CusUser>(
+                options => {
+                    options.SignIn.RequireConfirmedEmail = false;
+                    options.SignIn.RequireConfirmedAccount = false;
+                }
+            ).AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+            //Seting the Account Login page  
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings  
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.LoginPath = "/Pages/Login"; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login  
+                options.LogoutPath = "/Pages/Login2"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout  
+                options.AccessDeniedPath = "/Pages/Register"; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied  
+                options.SlidingExpiration = true;
+            });
+
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //    .AddCookie(option =>
+            //    {
+            //        //option.AccessDeniedPath = "/Pages/Register";
+            //        //option.LoginPath = "/Pages/Login";
+            //    });
+            #endregion
             services.AddControllersWithViews();
 
             services.AddDirectoryBrowser();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            #region 登入驗證
-
-            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            //    .AddCookie(option =>
-            //    {
-            //        option.AccessDeniedPath = "/LoginDB/AccessDeny";
-            //        option.LoginPath = "/LoginDB/Login";
-            //    });
-            #endregion
+            
 
             #region 多國語系
             services.AddControllersWithViews()
@@ -92,10 +137,7 @@ namespace ObserverPatternWeb
             services.AddScoped<IDapperService, DapperService>();
             services.AddScoped<IDataServiceBase,DataServiceBase>();
             
-            //判斷環境
-            string cnSetting = Configuration.GetSection("Environment").Value;
-            string cnStrSetting = $@"{cnSetting.Substring(0, 1).ToUpper()}{cnSetting.Substring(1, cnSetting.Length - 1)}Connection";
-            var cnString = Configuration.GetConnectionString(cnStrSetting) != null ? $@"ConnectionStrings:{cnStrSetting}" : "ConnectionStrings:DefaultConnection";
+            
 
             //註冊連線字串
             var dBConnection = Configuration.GetSection(cnString);
@@ -108,7 +150,11 @@ namespace ObserverPatternWeb
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            LogManager.Configuration.Variables["connectionString"] = Configuration.GetConnectionString("DefaultConnection");
+            //判斷環境
+            string cnSetting = Configuration.GetSection("Environment").Value;
+            string cnStrSetting = $@"{cnSetting.Substring(0, 1).ToUpper()}{cnSetting.Substring(1, cnSetting.Length - 1)}Connection";
+
+            LogManager.Configuration.Variables["connectionString"] = Configuration.GetConnectionString(cnStrSetting);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -158,7 +204,7 @@ namespace ObserverPatternWeb
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Dashboards}/{action=Dashboard_1}/{id?}");
                 endpoints.MapRazorPages();
             });
 
@@ -166,6 +212,14 @@ namespace ObserverPatternWeb
             app.UseFileServer(new FileServerOptions
             {
                 EnableDirectoryBrowsing = true
+            });
+
+            //app.UseMiddleware<MyCustomMiddleware>();//寫法1.不用Extension method直接用內建的
+
+            app.UseHttpMiddleware();//寫法2.用Extension method
+
+            app.Run(async (context) => {
+                await context.Response.WriteAsync("Hello World!");
             });
 
             //app.UseDeveloperExceptionPage();

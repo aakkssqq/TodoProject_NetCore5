@@ -4,11 +4,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using ObserverPattern.Base.Organization;
 
 namespace ObserverPatternWeb.Controllers
 {
-    public class PersonController : Controller
+    [Authorize]
+    public class PersonController : BaseController
     {
+        [ViewData]
+        public CusUser User => OPUser;
+
         public IActionResult Profile()
         {
             return View();

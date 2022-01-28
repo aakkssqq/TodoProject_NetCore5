@@ -1,6 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using ObserverPattern.Base.Organization
 @using ObserverPatternWeb.Resources.OPStrings
 @inject IHtmlLocalizer<OPStringsResources> L
+@{
+    var cUser = ViewData["User"] as CusUser;
+}
 
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
@@ -9,31 +13,44 @@
                 <div class="dropdown profile-element">
                     <img alt="image" class="rounded-circle" src="~/Images/profile_small.jpg" />
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="block m-t-xs font-bold">David Williams</span>
-                        <span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
+                        <span class="block m-t-xs font-bold">
+                            [@User.Identity.Name] @cUser.DisplayName 
+                        </span>
+                        <span class="text-muted text-xs block">@cUser.DefaultMember.LeaderTitle <b class="caret"></b></span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs" style="position: absolute; top: 91px; left: 0px; will-change: top, left;">
-                        <li><a class="dropdown-item" asp-area="" asp-controller="AppViews" asp-action="Profile">Profile</a></li>
-                        <li><a class="dropdown-item" asp-area="" asp-controller="AppViews" asp-action="Contacts">Contacts</a></li>
-                        <li><a class="dropdown-item" asp-area="" asp-controller="Mailbox" asp-action="Inbox">Mailbox</a></li>
+                        <li><a class="dropdown-item" asp-area="" asp-controller="AppViews" asp-action="Profile">@L["Profile"]</a></li>
+                        <li><a class="dropdown-item" asp-area="" asp-controller="AppViews" asp-action="Contacts">@L["Contacts"]</a></li>
+                        <li><a class="dropdown-item" asp-area="" asp-controller="Mailbox" asp-action="Inbox">@L["Mailbox"]</a></li>
+                        <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@L["PersonManage"]</a></li>
                         <li class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="@Url.Action("Login", "Pages")">Logout</a></li>
+                        <li><a class="dropdown-item" href="@Url.Action("Login", "Pages")">@L["LogOut"]</a></li>
                     </ul>
                 </div>
                 <div class="logo-element">
                     @L["CompanyShotName"]
                 </div>
             </li>
-            <li class="@Html.IsSelected(controller: "Dashboards")">
-                <a href="@Url.Action("Dashboard_1", "Dashboards")"><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">Dashboards</span> <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse @*@Html.IsSelected(controller: " Dashboards", cssClass: "in" *@)">
-                    <li class="@Html.IsSelected(action: "Dashboard_1")"><a href="@Url.Action("Dashboard_1", "Dashboards")">Dashboard v.1</a></li>
-                    <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")">Dashboard v.2</a></li>
-                    <li class="@Html.IsSelected(action: "Dashboard_3")"><a href="@Url.Action("Dashboard_3", "Dashboards")">Dashboard v.3</a></li>
-                    <li class="@Html.IsSelected(action: "Dashboard_4_1")"><a href="@Url.Action("Dashboard_4_1", "Dashboards")">Dashboard v.4</a></li>
-                    <li class="@Html.IsSelected(action: "Dashboard_5")"><a href="@Url.Action("Dashboard_5", "Dashboards")">Dashboard v.5</a></li>
-                </ul>
-            </li>
+        <li class="@Html.IsSelected(controller: "Dashboards")">
+            <a href="@Url.Action("Dashboard_1", "Dashboards")"><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">@L["Dashboard"]</span> <span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse @*@Html.IsSelected(controller: " Dashboards", cssClass: "in" *@)">
+                <li class="@Html.IsSelected(action: "Dashboard_1")"><a href="@Url.Action("Dashboard_1", "Dashboards")">@L["Dashboard"] v.1</a></li>
+                <li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")">@L["Dashboard"] v.2</a></li>
+                <li class="@Html.IsSelected(action: "Dashboard_3")"><a href="@Url.Action("Dashboard_3", "Dashboards")">@L["Dashboard"] v.3</a></li>
+                <li class="@Html.IsSelected(action: "Dashboard_4_1")"><a href="@Url.Action("Dashboard_4_1", "Dashboards")">@L["Dashboard"] v.4</a></li>
+                <li class="@Html.IsSelected(action: "Dashboard_5")"><a href="@Url.Action("Dashboard_5", "Dashboards")">@L["Dashboard"] v.5</a></li>
+            </ul>
+        </li>
+        <li class="@Html.IsSelected(controller: "Org")">
+            <a href="@Url.Action("OrgPage", "Org")"><i class="fa fa fa-vcard-o"></i> <span class="nav-label" data-i18n="nav.dashboard">@L["OrgManagement"]</span> <span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse @Html.IsSelected(controller: " Org", cssClass: "in" )">
+                <li class="@Html.IsSelected(action: "OrgPage")"><a href="@Url.Action("OrgPage", "Org")">@L["OrgTree"]</a></li>
+                @*<li class="@Html.IsSelected(action: "Dashboard_2")"><a href="@Url.Action("Dashboard_2", "Dashboards")">@L["Dashboard"] v.2</a></li>
+                <li class="@Html.IsSelected(action: "Dashboard_3")"><a href="@Url.Action("Dashboard_3", "Dashboards")">@L["Dashboard"] v.3</a></li>
+                <li class="@Html.IsSelected(action: "Dashboard_4_1")"><a href="@Url.Action("Dashboard_4_1", "Dashboards")">@L["Dashboard"] v.4</a></li>
+                <li class="@Html.IsSelected(action: "Dashboard_5")"><a href="@Url.Action("Dashboard_5", "Dashboards")">@L["Dashboard"] v.5</a></li>*@
+            </ul>
+        </li>
             <li class="@Html.IsSelected(controller: "Layouts")">
                 <a href="@Url.Action("Index", "Layouts")"><i class="fa fa-diamond"></i> <span class="nav-label" data-i18n="nav.layouts">Layouts</span> <span class="label label-primary float-right">NEW</span></a>
             </li>

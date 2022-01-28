@@ -1,20 +1,43 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
+using ObserverPattern.Base.Organization;
+using ObserverPatternWeb.Resources.OPStrings;
 
-namespace ASPNET_Core_2_1.Controllers
+namespace ObserverPatternWeb.Controllers
 {
-    public class DashboardsController : Controller
+    [Authorize]
+    public class DashboardsController : BaseController
     {
-        public IActionResult Dashboard_1()
+        private readonly UserManager<CusUser> _userManager;
+        private readonly ILogger<HomeController> _logger;
+        private IStringLocalizer<OPStringsResources> _localizer;
+
+        [ViewData] 
+        public CusUser User => OPUser;
+
+        public DashboardsController(
+            ILogger<HomeController> logger,
+            IStringLocalizer<OPStringsResources> localizer,
+            UserManager<CusUser> userManager)
+        {
+            _userManager = userManager;
+            _logger = logger;
+            _localizer = localizer;
+        }
+
+        public async Task<IActionResult> Dashboard_1()
         {
             return View();
         }
 
-        public IActionResult Dashboard_2()
+        public async Task<IActionResult> Dashboard_2()
         {
+            
             return View();
         }
 
