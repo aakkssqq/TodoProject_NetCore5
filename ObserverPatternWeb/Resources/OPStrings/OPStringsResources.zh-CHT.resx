@@ -195,4 +195,7 @@
   <data name="Ou_NewUnitl" xml:space="preserve">
     <value>新單位</value>
   </data>
+  <data name="Ou_Edit" xml:space="preserve">
+    <value>編輯單位</value>
+  </data>
 </root>

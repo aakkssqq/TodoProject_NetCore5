@@ -195,4 +195,7 @@
   <data name="Ou_NewUnitl" xml:space="preserve">
     <value>New unit</value>
   </data>
+  <data name="Ou_Edit" xml:space="preserve">
+    <value>Edit Unit</value>
+  </data>
 </root>

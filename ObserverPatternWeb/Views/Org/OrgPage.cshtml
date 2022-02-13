@@ -56,6 +56,43 @@
             </div>
         </div>
     </div>
+    <div class="modal inmodal" id="editModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">編輯單位</h4>
+                    <small class="font-bold">請修改單位資訊後點及儲存單位.</small>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>單位編號</label>
+                        <input id="EditOuId" disabled type="text" placeholder="請輸入單位名稱" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>單位名稱</label>
+                        <input id="EditOuName" type="text" placeholder="請輸入單位名稱" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>單位編碼</label>
+                        <input id="EditOuCode" type="text" placeholder="請輸入單位編碼" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>單位級別</label>
+                        <input id="EditOuLevel" type="text" placeholder="請輸入單位級別" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>單位排序</label>
+                        <input id="EditOuIndex" type="text" placeholder="請輸入單位排序" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="EditNode()">儲存單位</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-3">
             <div class="ibox ">
@@ -153,19 +190,20 @@
                             var jsonarray = eval('(' + jsonstr + ')');
                             $.ajax({
                                 type: "GET",
-                                url: "/api/DataServiceBase/TableData?tableName=ObsOUs",
+                                url: "/api/DataServiceBase/TableData?tableName=ObsOUs&filter=Enable=1&order=ParentOUID,OrderIndex",
                                 dataType: "json",
                                 async: false,
                                 success: function(result) {
                                     var arrays = result;
                                     for (var i = 0; i < arrays.length; i++) {
-                                        console.log(arrays[i])
+                                        //console.log(arrays[i]);
                                         var arr = {
                                             "id": arrays[i].OUID,
                                             "parent": arrays[i].ParentOUID == null ? "#" : arrays[i].ParentOUID,
                                             "text": arrays[i].OUName,
                                             "code": arrays[i].OUCode,
-                                            "level": arrays[i].Level
+                                            "level": arrays[i].Level,
+                                            "index":arrays[i].OrderIndex
                                         }
                                         jsonarray.push(arr);
                                     }
@@ -187,8 +225,6 @@
             var copyNode = function(node2, parent2, position2, more2) {
                 alert("copyNode");
             };
-
-
         });
 
         function customMenu(node) {
@@ -205,12 +241,18 @@
                     "separator_before": false,
                     "separator_after": false,
                     "_disabled": false, //(this.check("rename_node", data.reference, this.get_parent(data.reference), "")),
-                    "label": "@L["Ou_Rename"]",
+                    "label": "@L["Ou_Edit"]",
                     "shortcut_label": "F2",
-                    "icon": "glyphicon glyphicon-leaf",
-                    "action": function(data) {
+                    "icon": "fa fa-edit",
+                    "action": function (data) {
+                        nodeData = data;
                         var inst = $.jstree.reference(data.reference), obj = inst.get_node(data.reference);
-                        inst.edit(obj);
+                        $("#EditOuId").val(obj.original.id);
+                        $("#EditOuName").val(obj.original.text);
+                        $("#EditOuCode").val(obj.original.code);
+                        $("#EditOuLevel").val(obj.original.level);
+                        $("#EditOuIndex").val(obj.original.index);
+                        $("#editModal").modal("show");
                     }
                 },
                 "Ou_Delete": {
@@ -219,7 +261,7 @@
                     "separator_after": false,
                     "_disabled": false, //(this.check("delete_node", data.reference, this.get_parent(data.reference), "")),
                     "label": "@L["Ou_Delete"]",
-                    "icon": "glyphicon glyphicon-remove",
+                    "icon": "fa fa-trash",
                     "action": function(data) {
                         var inst = $.jstree.reference(data.reference),
                             obj = inst.get_node(data.reference);
@@ -231,7 +273,6 @@
                     }
                 }
             }
-
             return items;
         }
 
@@ -316,34 +357,72 @@
             //    });
         }
 
-        ////滑鼠右鍵預設選單事件
-        //document.oncontextmenu = function(ev) {
-        //    var oevent = ev || event;
-        //    var myMenu = document.getElementById('myMenu');
-        //    //彈出自定義選單
-        //    myMenu.style.display = 'block';
-        //    //設定自定義選單的座標，達到滑鼠右鍵的地方彈出自定義選單
-        //    myMenu.style.left = oevent.x + 'px';
-        //    myMenu.style.top = oevent.y + 'px';
+        function EditNode() {
+            var ouid = $("#EditOuId").val();
+            var name = $("#EditOuName").val();
+            var code = $("#EditOuCode").val();
+            var level = $("#EditOuLevel").val();
+            var ouIndex = $("#EditOuIndex").val();
 
-        //    //禁用右鍵預設選單
-        //    return false;
-        //}
-        ////點選頁面任意區域，隱藏自定義選單
-        //document.onclick = function() {
-        //    var myMenu = document.getElementById('myMenu');
-        //    myMenu.style.display = 'none';
-        //}
-        ////顯示div
-        //function xianshi(){
-        //    var myDiv = document.getElementById('myDiv');
-        //    myDiv.style.display="block";
-        //}
-        ////隱藏div
-        //function yc(){
-        //    var myDiv = document.getElementById('myDiv');
-        //    myDiv.style.display="none";
-        //}
+            if (!name || !code || !level || !ouIndex) {
+                var alertStr = "";
+                if (!name)
+                    alertStr = alertStr + " 請輸入單位名稱 ! ";
+                if (!code)
+                    alertStr = alertStr + " 請輸入單位編號 ! ";
+                if (!level)
+                    alertStr = alertStr + " 請輸入單位級別 ! ";
+                if (!ouIndex)
+                    alertStr = alertStr + " 請輸入單位排序 ! ";
+                swal({
+                    icon: "error",
+                    title: " =輸入資料錯誤= ",
+                    text: alertStr
+                });
+                return false;
+            }
+            
+            var inst = $.jstree.reference(nodeData.reference), obj = inst.get_node(nodeData.reference);
+            var ou = {
+                "ouid": ouid,
+                "ouCode": code,
+                "ouName": name,
+                "level": level,
+                "parentOUID": obj.parent,
+                "guid": "",
+                "orderIndex": ouIndex
+            }
+
+            $.ajax({
+                type: "PUT",
+                url: "/api/OUServiceBase",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(ou),
+                async: true,
+                success: function(result) {
+                    if (!!result) {
+                        inst.delete_node(obj);
+                        var new_node = {};
+                        new_node.id = ou.ouid,
+                        new_node.parent = ou.parentOUID;
+                        new_node.text = ou.ouName;
+                        new_node.code = ou.ouCode;
+                        new_node.level = ou.level;
+
+                        //var parentNode = inst.get_node(new_node.parent);
+                        //inst.create_node(parentNode, new_node);
+
+                        $("#using_json").jstree("refresh");
+                        $("#editModal").modal("hide");
+                    }
+                },
+                error: function(xhr) {
+                    alert(xhr.status);
+                }
+            });
+        }
+
     </script>
     <style>
         #myMenu {
