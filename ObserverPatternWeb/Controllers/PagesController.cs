@@ -41,6 +41,11 @@ namespace ObserverPatternWeb.Controllers
             _logger = logger;
             _localizer = localizer;
         }
+
+        [ViewData]
+        public CusUser User => OPUser;
+
+        [Authorize]
         public IActionResult SearchResults()
         {
             return View();

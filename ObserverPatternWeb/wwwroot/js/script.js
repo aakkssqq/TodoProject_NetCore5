@@ -16,9 +16,9 @@ $(document).ready(function () {
 
     // Add body-small class if window less than 768px
     if ($(window).width() < 769) {
-        $('body').addClass('body-small')
+        $('body').addClass('body-small');
     } else {
-        $('body').removeClass('body-small')
+        $('body').removeClass('body-small');
     }
 
     // MetisMenu

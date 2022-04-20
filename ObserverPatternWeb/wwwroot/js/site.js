@@ -6,3 +6,6 @@ var site= {};
 site.SSEUrl = "/api/Push";
 site.MsgUrl = "/api/Push/12345";
 site.UploadUrl = "/api/File";
+site.DataUrl = "/api/DataServiceBase/TableData";
+site.OUServiceUrl = "/api/OUServiceBase";
+site.MemberServiceUrl = "/api/MemberServiceBase";

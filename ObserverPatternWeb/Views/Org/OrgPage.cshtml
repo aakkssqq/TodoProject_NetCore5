@@ -82,6 +82,10 @@
                         <input id="EditOuLevel" type="text" placeholder="請輸入單位級別" class="form-control">
                     </div>
                     <div class="form-group">
+                        <label>啟用單位</label>
+                        <input id="EditOuEnable" type="checkbox" value="true" class="input-mini">
+                    </div>
+                    <div class="form-group">
                         <label>單位排序</label>
                         <input id="EditOuIndex" type="text" placeholder="請輸入單位排序" class="form-control">
                     </div>
@@ -109,6 +113,32 @@
                 </div>
                 <div class="ibox-content">
                     <div id="using_json"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 animated fadeInRight">
+            <div class="row" id="MembersContain">
+                <div class="col-lg-4">
+                    <div class="contact-box">
+                        <a class="row" href="@Url.Action("Profile", "AppViews")">
+                            <div class="col-4">
+                                <div class="text-center">
+                                    <img alt="image" class="rounded-circle m-t-xs img-fluid" src="~/Images/a2.jpg">
+                                    <div class="m-t-xs font-bold">Graphics designer</div>
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <h3><strong>John Smith</strong></h3>
+                                <p><i class="fa fa-map-marker"></i> Riviera State 32/106</p>
+                                <address>
+                                    <strong>Twitter, Inc.</strong><br>
+                                    795 Folsom Ave, Suite 600<br>
+                                    San Francisco, CA 94107<br>
+                                    <abbr title="Phone">P:</abbr> (123) 456-7890
+                                </address>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -149,9 +179,38 @@
         $(document).ready(function() {
             $("#using_json")
                 .on('select_node.jstree',
-                    function(e, data) {
-                        alert('select_node.jstree');
-                        //$app.debug('select_node completed', data);
+                    function(e, ou) {
+                        axios.get(site.MemberServiceUrl + "/ByOuId", { params: { ouid: ou.node.id } })
+                            .then(
+                                function (response) {
+                                    $("#MembersContain").empty();
+                                    for (var i = 0; i < response.data.length; i++) {
+                                        var str = "<div class=\"col-lg-4\">" +
+                                            "<div class=\"contact-box\">"+
+                                            "<a class=\"row\" href=\"/AppViews/Profile\">"+
+                                            "<div class=\"col-4\">"+
+                                            "<div class=\"text-center\">"+
+                                            "<img alt=\"image\" class=\"rounded-circle m-t-xs img-fluid\" src=\"/Images/a2.jpg\">"+
+                                            "<div class=\"m-t-xs font-bold\">" + response.data[i].leaderTitle +"</div>"+
+                                            "</div>" +
+                                            "</div>" +
+                                            "<div class=\"col-8\">"+
+                                            "<h3><strong>" + response.data[i].user.displayName +"</strong></h3>"+
+                                            "<p><i class=\"fa fa-map-marker\"></i> Riviera State 32/106</p>"+
+                                            "<address>"+
+                                            "<strong>" + response.data[i].user.email+"</strong><br>"+
+                                            "795 Folsom Ave, Suite 600<br>"+
+                                            "San Francisco, CA 94107<br>"+
+                                            "<abbr title=\"Phone\">TEL: </abbr> " + response.data[i].user.phoneNumber +
+                                            "</address>"+
+                                            "</div>"+
+                                            "</a>"+
+                                            "</div>"+
+                                            "</div>";
+                                        $("#MembersContain").append(str);
+                                    }
+                                })
+                            .catch((error) => console.log(error));
                     })
                 .on('copy_node.jstree',
                     function(e, data) {
@@ -190,7 +249,7 @@
                             var jsonarray = eval('(' + jsonstr + ')');
                             $.ajax({
                                 type: "GET",
-                                url: "/api/DataServiceBase/TableData?tableName=ObsOUs&filter=Enable=1&order=ParentOUID,OrderIndex",
+                                url: site.DataUrl + "?tableName=ObsOUs&filter=Enable=1&order=ParentOUID,OrderIndex",
                                 dataType: "json",
                                 async: false,
                                 success: function(result) {
@@ -202,8 +261,9 @@
                                             "parent": arrays[i].ParentOUID == null ? "#" : arrays[i].ParentOUID,
                                             "text": arrays[i].OUName,
                                             "code": arrays[i].OUCode,
+                                            "enable": arrays[i].Enable,
                                             "level": arrays[i].Level,
-                                            "index":arrays[i].OrderIndex
+                                            "index": arrays[i].OrderIndex
                                         }
                                         jsonarray.push(arr);
                                     }
@@ -244,13 +304,18 @@
                     "label": "@L["Ou_Edit"]",
                     "shortcut_label": "F2",
                     "icon": "fa fa-edit",
-                    "action": function (data) {
+                    "action": function(data) {
                         nodeData = data;
                         var inst = $.jstree.reference(data.reference), obj = inst.get_node(data.reference);
                         $("#EditOuId").val(obj.original.id);
                         $("#EditOuName").val(obj.original.text);
                         $("#EditOuCode").val(obj.original.code);
                         $("#EditOuLevel").val(obj.original.level);
+                        if (obj.original.enable) {
+                            $("#EditOuEnable").attr("checked", true);
+                        } else {
+                            $("#EditOuEnable").attr("checked",'');
+                        }
                         $("#EditOuIndex").val(obj.original.index);
                         $("#editModal").modal("show");
                     }
@@ -307,13 +372,14 @@
                 "ouName": name,
                 "level": level,
                 "parentOUID": obj.id,
+                
                 "guid": "",
                 "orderIndex": ouIndex
             }
 
             $.ajax({
                 type: "POST",
-                url: "/api/OUServiceBase",
+                url: site.OUServiceUrl,
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(ou),
@@ -325,7 +391,6 @@
                         new_node.text = ou.ouName;
                         new_node.code = ou.ouCode;
                         new_node.level = ou.level;
-
                         inst.create_node(obj, new_node);
                         $("#createModal").modal("hide");
                     }
@@ -363,6 +428,7 @@
             var code = $("#EditOuCode").val();
             var level = $("#EditOuLevel").val();
             var ouIndex = $("#EditOuIndex").val();
+            var enable = $("input[Id='EditOuEnable']").is(":checked");
 
             if (!name || !code || !level || !ouIndex) {
                 var alertStr = "";
@@ -381,21 +447,23 @@
                 });
                 return false;
             }
-            
+
             var inst = $.jstree.reference(nodeData.reference), obj = inst.get_node(nodeData.reference);
             var ou = {
                 "ouid": ouid,
                 "ouCode": code,
                 "ouName": name,
                 "level": level,
+                "enable": enable,
                 "parentOUID": obj.parent,
                 "guid": "",
                 "orderIndex": ouIndex
             }
 
+
             $.ajax({
                 type: "PUT",
-                url: "/api/OUServiceBase",
+                url: site.OUServiceUrl,
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(ou),
@@ -405,7 +473,7 @@
                         inst.delete_node(obj);
                         var new_node = {};
                         new_node.id = ou.ouid,
-                        new_node.parent = ou.parentOUID;
+                            new_node.parent = ou.parentOUID;
                         new_node.text = ou.ouName;
                         new_node.code = ou.ouCode;
                         new_node.level = ou.level;
