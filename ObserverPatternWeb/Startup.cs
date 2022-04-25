@@ -86,11 +86,11 @@ namespace ObserverPatternWeb
             {
                 // Cookie settings  
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(1440);// TimeSpan.FromMinutes(5);
                 options.LoginPath = "/Pages/Login"; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login  
                 options.LogoutPath = "/Pages/Login2"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout  
                 options.AccessDeniedPath = "/Pages/Register"; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied  
-                options.SlidingExpiration = true;
+                options.SlidingExpiration = false;
             });
 
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

@@ -14,7 +14,7 @@ namespace ObserverPatternWeb.Controllers
 {
     public class BaseController : Controller
     {
-        protected virtual CusUser OPUser => new CusUser().GetUser(HttpContext?.User.Identity.Name);
+        protected virtual CurrentUser OPUser => new CurrentUser().GetUser(HttpContext?.User.Identity.Name);
         protected virtual string TestStr => "1234560";
 
         public BaseController()

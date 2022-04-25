@@ -198,4 +198,7 @@
   <data name="Ou_Edit" xml:space="preserve">
     <value>編輯單位</value>
   </data>
+  <data name="Ou_CreateUser" xml:space="preserve">
+    <value>新增人員</value>
+  </data>
 </root>

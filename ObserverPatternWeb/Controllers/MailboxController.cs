@@ -13,7 +13,7 @@ namespace ObserverPatternWeb.Controllers
     {
 
         [ViewData]
-        public CusUser User => OPUser;
+        public CurrentUser User => OPUser;
 
         public IActionResult Inbox()
         {

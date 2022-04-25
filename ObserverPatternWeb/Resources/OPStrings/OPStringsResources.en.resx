@@ -198,4 +198,7 @@
   <data name="Ou_Edit" xml:space="preserve">
     <value>Edit Unit</value>
   </data>
+  <data name="Ou_CreateUser" xml:space="preserve">
+    <value>Add New User</value>
+  </data>
 </root>

@@ -13,7 +13,7 @@ namespace ObserverPatternWeb.Controllers
     public class PersonController : BaseController
     {
         [ViewData]
-        public CusUser User => OPUser;
+        public CurrentUser User => OPUser;
 
         public IActionResult Profile()
         {

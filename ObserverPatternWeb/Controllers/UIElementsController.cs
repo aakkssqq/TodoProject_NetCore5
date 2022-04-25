@@ -12,7 +12,7 @@ namespace ObserverPatternWeb.Controllers
     public class UIElementsController : BaseController
     {
         [ViewData]
-        public CusUser User => OPUser;
+        public CurrentUser User => OPUser;
 
         public IActionResult Typography()
         {

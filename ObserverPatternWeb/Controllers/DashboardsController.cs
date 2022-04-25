@@ -18,7 +18,7 @@ namespace ObserverPatternWeb.Controllers
         private IStringLocalizer<OPStringsResources> _localizer;
 
         [ViewData] 
-        public CusUser User => OPUser;
+        public CurrentUser User => OPUser;
 
         public DashboardsController(
             ILogger<HomeController> logger,

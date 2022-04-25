@@ -56,6 +56,47 @@
             </div>
         </div>
     </div>
+    <div class="modal inmodal" id="createUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">新增人員</h4>
+                    <small class="font-bold">請輸入人員資訊後點及新增人員.</small>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>人員帳號</label>
+                        <input id="CreateUserName" type="text" placeholder="請輸入人員名稱" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>人員密碼</label>
+                        <input id="CreateUserPassword" type="text" placeholder="請輸入人員密碼" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>人員名稱</label>
+                        <input id="CreateUserDisplayName" type="text" placeholder="請輸入人員名稱" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>人員生日</label>
+                        <input id="CreateUserBirthday" type="date" placeholder="請輸入人員生日" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>人員信箱</label>
+                        <input id="CreateUserMail" type="email" placeholder="請輸入人員信箱" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>人員電話</label>
+                        <input id="CreateUserTEL" type="tel" placeholder="請輸入人員電話" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="CreateUser()">建立人員</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal inmodal" id="editModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content animated flipInY">
@@ -101,13 +142,10 @@
         <div class="col-lg-3">
             <div class="ibox ">
                 <div class="ibox-title">
-                    <h5>JSON example</h5>
+                    <h5>組織單位</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
                         </a>
                     </div>
                 </div>
@@ -117,40 +155,48 @@
             </div>
         </div>
         <div class="col-lg-9 animated fadeInRight">
-            <div class="row" id="MembersContain">
-                <div class="col-lg-4">
-                    <div class="contact-box">
-                        <a class="row" href="@Url.Action("Profile", "AppViews")">
-                            <div class="col-4">
-                                <div class="text-center">
-                                    <img alt="image" class="rounded-circle m-t-xs img-fluid" src="~/Images/a2.jpg">
-                                    <div class="m-t-xs font-bold">Graphics designer</div>
-                                </div>
-                            </div>
-                            <div class="col-8">
-                                <h3><strong>John Smith</strong></h3>
-                                <p><i class="fa fa-map-marker"></i> Riviera State 32/106</p>
-                                <address>
-                                    <strong>Twitter, Inc.</strong><br>
-                                    795 Folsom Ave, Suite 600<br>
-                                    San Francisco, CA 94107<br>
-                                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                                </address>
-                            </div>
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>人員</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
                         </a>
                     </div>
                 </div>
+                <div class="ibox-content">
+                    <div class="row" id="MembersContain">
+                        <div class="col-lg-4">
+                            <div class="contact-box">
+                                <a class="row" href="@Url.Action("Profile", "AppViews")">
+                                    <div class="col-4">
+                                        <div class="text-center">
+                                            <img alt="image" class="rounded-circle m-t-xs img-fluid" src="~/Images/a2.jpg">
+                                            <div class="m-t-xs font-bold">Graphics designer</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <h3><strong>John Smith</strong></h3>
+                                        <p><i class="fa fa-map-marker"></i> Riviera State 32/106</p>
+                                        <address>
+                                            <strong>Twitter, Inc.</strong><br>
+                                            795 Folsom Ave, Suite 600<br>
+                                            San Francisco, CA 94107<br>
+                                            <abbr title="Phone">P:</abbr> (123) 456-7890
+                                        </address>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            
+
+            
         </div>
     </div>
-    <div id="myMenu">
-        <ul>
-            <li onclick="xianshi();">顯示</li>
-            <li onclick="yc();">隱藏</li>
-        </ul>
     </div>
-
-</div>
 
 @section Styles {
     <environment names="Development">
@@ -336,7 +382,15 @@
                             inst.delete_node(obj);
                         }
                     }
-                }
+                },
+                "Ou_CreateUser": {
+                    "label": "@L["Ou_CreateUser"]",
+                    "icon": "fa fa-user-circle",
+                    "action": function(data) {
+                        nodeData = data;
+                        $("#createUserModal").modal("show");
+                    }
+                },
             }
             return items;
         }
@@ -372,7 +426,7 @@
                 "ouName": name,
                 "level": level,
                 "parentOUID": obj.id,
-                
+
                 "guid": "",
                 "orderIndex": ouIndex
             }
@@ -491,30 +545,75 @@
             });
         }
 
+        function CreateUser() {
+            var userName = $("#CreateUserName").val();
+            var password = $("#CreateUserPassword").val();
+            var displayName = $("#CreateUserDisplayName").val();
+            var birthday = $("#CreateUserBirthday").val();
+            var email = $("#CreateUserMail").val();
+            var tel = $("#CreateUserTEL").val();
+
+            if (!userName || !password || !displayName || !birthday || !email || !tel) {
+                var alertStr = "";
+                if (!userName)
+                    alertStr = alertStr + " 請輸入人員帳號 ! ";
+                if (!password)
+                    alertStr = alertStr + " 請輸入登入密碼 ! ";
+                if (!displayName)
+                    alertStr = alertStr + " 請輸入顯示名稱 ! ";
+                if (!birthday)
+                    alertStr = alertStr + " 請輸入生日 ! ";
+                if (!email)
+                    alertStr = alertStr + " 請輸入電子信箱 ! ";
+                if (!tel)
+                    alertStr = alertStr + " 請輸入連絡電話 ! ";
+                swal({
+                    icon: "error",
+                    title: " =輸入資料錯誤= ",
+                    text: alertStr
+                });
+                return false;
+            }
+
+            var inst = $.jstree.reference(nodeData.reference), obj = inst.get_node(nodeData.reference);
+            var user = {
+                "id": "string",
+                "userID": 0,
+                "displayName": displayName,
+                "password":password,
+                "birthDay": birthday,
+                "userName": userName,
+                "email": email,
+                "phoneNumber": tel,
+                "ouid": obj.id
+            }
+            
+
+            $.ajax({
+                type: "POST",
+                url: site.UserServiceUrl,
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(user),
+                async: true,
+                success: function (result) {
+                    if (!!result) {
+                        var new_node = {};
+                        new_node.parent = ou.parentOUID;
+                        new_node.text = ou.ouName;
+                        new_node.code = ou.ouCode;
+                        new_node.level = ou.level;
+                        inst.create_node(obj, new_node);
+                        $("#createModal").modal("hide");
+                    }
+                },
+                error: function (xhr) {
+                    alert(xhr.status);
+                }
+            });
+        }
     </script>
     <style>
-        #myMenu {
-            width: 80px;
-            background: white;
-            display: none;
-            position: absolute;
-            border: 1px solid #EED5D2;
-            z-index: 999
-        }
-
-        #myMenu ul {
-            list-style: none;
-        }
-
-        #myMenu ul li {
-            width: 50px;
-            height: 20px;
-            background: #FFE4B5;
-            margin-bottom: 5px;
-            text-align: center;
-            margin-left: -25px
-        }
-
         #myDiv {
             border: 1px solid red;
             width: 100px;

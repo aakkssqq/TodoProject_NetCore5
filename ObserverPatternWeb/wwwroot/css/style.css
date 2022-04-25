@@ -5629,7 +5629,8 @@ body.mini-navbar.fixed-sidebar .logo-element {
 /* CONTACTS */
 .contact-box {
   background-color: #ffffff;
-  border: 1px solid #e7eaec;
+  border: 1px solid #e7eaec75;
+  box-shadow: 5px 5px 5px grey;
   padding: 20px;
   margin-bottom: 20px;
 }

@@ -43,7 +43,7 @@ namespace ObserverPatternWeb.Controllers
         }
 
         [ViewData]
-        public CusUser User => OPUser;
+        public CurrentUser User => OPUser;
 
         [Authorize]
         public IActionResult SearchResults()

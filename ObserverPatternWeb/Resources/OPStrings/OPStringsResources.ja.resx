@@ -198,4 +198,7 @@
   <data name="Ou_Edit" xml:space="preserve">
     <value>ユニットを編集</value>
   </data>
+  <data name="Ou_CreateUser" xml:space="preserve">
+    <value>创建一个帐户</value>
+  </data>
 </root>

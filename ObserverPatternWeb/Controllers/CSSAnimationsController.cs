@@ -12,7 +12,7 @@ namespace ObserverPatternWeb.Controllers
     public class CSSAnimationsController : BaseController
     {
         [ViewData]
-        public CusUser User => OPUser;
+        public CurrentUser User => OPUser;
 
         public IActionResult Index()
         {

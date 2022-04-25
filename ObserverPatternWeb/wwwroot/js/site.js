@@ -8,4 +8,5 @@ site.MsgUrl = "/api/Push/12345";
 site.UploadUrl = "/api/File";
 site.DataUrl = "/api/DataServiceBase/TableData";
 site.OUServiceUrl = "/api/OUServiceBase";
+site.UserServiceUrl = "/api/UserServiceBase";
 site.MemberServiceUrl = "/api/MemberServiceBase";

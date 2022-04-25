@@ -13,7 +13,7 @@ namespace ObserverPatternWeb.Controllers
     public class OrgController : BaseController
     {
         [ViewData]
-        public CusUser User => OPUser;
+        public CurrentUser User => OPUser;
         public IActionResult OrgPage()
         {
             return View();
