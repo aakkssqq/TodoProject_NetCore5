@@ -25,12 +25,6 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ObserverPattern\ObserverPattern.csproj" />
-  </ItemGroup>
-
-
-
-  <ItemGroup>
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -41,6 +35,12 @@
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
     <Folder Include="Migrations\" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ObserverPattern\ObserverPattern.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
